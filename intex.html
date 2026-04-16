@@ -13,22 +13,26 @@
     :root {
       --ink: #f8fafc;
       --ink2: #e2e8f0;
+      --navy: #1f2937;
+      --navy2: #344256;
       --surface: rgba(255, 255, 255, 0.78);
       --surface2: rgba(255, 255, 255, 0.92);
       --text: #0f172a;
       --text2: #334155;
       --text3: #64748b;
-      --gold: #7c3aed;
-      --gold2: #a78bfa;
-      --cyan: #06b6d4;
-      --violet: #6366f1;
+      --gold: #4f7f7a;
+      --gold2: #8fb7b2;
+      --cyan: #5b8fa8;
+      --violet: #8a7fb8;
       --glass: rgba(255, 255, 255, 0.68);
       --glass2: rgba(255, 255, 255, 0.88);
       --border: rgba(15, 23, 42, 0.09);
-      --border2: rgba(124, 58, 237, 0.24);
-      --glow: 0 20px 60px rgba(124, 58, 237, 0.14);
-      --shadow: 0 18px 46px rgba(15, 23, 42, 0.1);
-      --radius: 16px;
+      --border2: rgba(79, 127, 122, 0.24);
+      --line: rgba(91, 143, 168, 0.18);
+      --success: #059669;
+      --glow: 0 20px 60px rgba(91, 143, 168, 0.16);
+      --shadow: 0 22px 55px rgba(15, 23, 42, 0.11);
+      --radius: 18px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -37,9 +41,9 @@
       min-height: 100vh;
       overflow-x: hidden;
       background:
-        radial-gradient(circle at 12% 18%, rgba(6, 182, 212, 0.16), transparent 28%),
-        radial-gradient(circle at 88% 6%, rgba(124, 58, 237, 0.15), transparent 24%),
-        linear-gradient(135deg, #f8fafc, #eef2ff 42%, #f8fafc);
+        radial-gradient(circle at 10% 14%, rgba(91, 143, 168, 0.13), transparent 26%),
+        radial-gradient(circle at 86% 8%, rgba(143, 183, 178, 0.14), transparent 24%),
+        linear-gradient(135deg, #fbfcfd 0%, #eef5f4 44%, #f7f4ef 100%);
       color: var(--text);
       font-family: "Outfit", system-ui, sans-serif;
       line-height: 1.65;
@@ -51,17 +55,17 @@
       inset: 0;
       z-index: 0;
       pointer-events: none;
-      opacity: 0.06;
+      opacity: 0.045;
       background-image:
-        linear-gradient(rgba(124, 58, 237, 0.28) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(6, 182, 212, 0.22) 1px, transparent 1px);
+        linear-gradient(rgba(91, 143, 168, 0.24) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(79, 127, 122, 0.18) 1px, transparent 1px);
       background-size: 76px 76px;
     }
 
     a { color: inherit; text-decoration: none; }
     button, input, textarea, select { font: inherit; }
     button { cursor: pointer; border: 0; }
-    ::selection { background: rgba(124, 58, 237, 0.18); color: var(--gold); }
+    ::selection { background: rgba(91, 143, 168, 0.18); color: var(--gold); }
 
     #loading {
       position: fixed;
@@ -80,14 +84,14 @@
       color: var(--gold);
       letter-spacing: 0.12em;
     }
-    .ld-bar { width: 190px; height: 2px; overflow: hidden; background: rgba(124, 58, 237, 0.14); border-radius: 20px; }
+    .ld-bar { width: 190px; height: 2px; overflow: hidden; background: rgba(91, 143, 168, 0.14); border-radius: 20px; }
     .ld-fill { width: 0; height: 100%; background: linear-gradient(90deg, var(--gold), var(--cyan)); animation: fill 1.1s ease forwards; }
     @keyframes fill { to { width: 100%; } }
 
     .page-shell {
       position: relative;
       z-index: 1;
-      width: min(1160px, calc(100% - 2rem));
+      width: min(1210px, calc(100% - 2rem));
       margin: 0 auto;
       padding: 24px 0 96px;
     }
@@ -100,11 +104,12 @@
       align-items: center;
       justify-content: space-between;
       gap: 18px;
-      padding: 14px 18px;
+      padding: 12px 16px;
       border: 1px solid var(--border);
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.82);
+      background: rgba(255, 255, 255, 0.5);
       backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
       box-shadow: var(--shadow);
     }
 
@@ -118,12 +123,26 @@
       color: white;
       font-weight: 800;
       letter-spacing: 0.06em;
-      box-shadow: 0 16px 36px rgba(124, 58, 237, 0.25);
+      box-shadow: 0 16px 36px rgba(91, 143, 168, 0.25);
     }
 
-    .topbar nav { display: flex; align-items: center; gap: 16px; color: var(--text3); font-size: 0.88rem; }
-    .topbar nav a { transition: color 0.25s ease; }
-    .topbar nav a:hover { color: var(--gold); }
+    .topbar nav { display: flex; align-items: center; gap: 8px; min-width: 0; overflow-x: auto; color: var(--text3); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; scrollbar-width: none; }
+    .topbar nav::-webkit-scrollbar { display: none; }
+    .topbar nav a {
+      flex: 0 0 auto;
+      padding: 10px 12px;
+      border-radius: 999px;
+      opacity: 0.58;
+      transition: color 0.25s ease, opacity 0.25s ease, transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+    }
+    .topbar nav a:hover,
+    .topbar nav a.active {
+      color: var(--navy);
+      opacity: 1;
+      background: rgba(255, 255, 255, 0.72);
+      transform: scale(1.08);
+      box-shadow: 0 12px 28px rgba(91, 143, 168, 0.14);
+    }
     .top-actions { display: flex; align-items: center; gap: 10px; }
 
     .btn, .ghost-btn, .icon-btn {
@@ -141,7 +160,7 @@
     .btn {
       color: white;
       background: linear-gradient(135deg, var(--gold), var(--cyan));
-      box-shadow: 0 16px 38px rgba(124, 58, 237, 0.22);
+      box-shadow: 0 16px 38px rgba(91, 143, 168, 0.22);
       font-weight: 700;
     }
 
@@ -153,50 +172,9 @@
 
     .btn:hover, .ghost-btn:hover, .icon-btn:hover { transform: translateY(-3px); box-shadow: var(--glow); border-color: var(--border2); }
 
-    .sidebar {
-      position: fixed;
-      left: 18px;
-      top: 50%;
-      z-index: 70;
-      width: 74px;
-      transform: translateY(-50%);
-      padding: 12px 10px;
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      background: rgba(255, 255, 255, 0.84);
-      backdrop-filter: blur(24px);
-      box-shadow: var(--shadow);
-      transition: width 0.28s ease, transform 0.28s ease;
-    }
-
-    .sidebar:hover, .sidebar.open { width: 224px; }
-    .side-logo {
-      display: grid;
-      place-items: center;
-      height: 42px;
-      margin-bottom: 8px;
-      border-radius: 16px;
-      color: white;
-      background: linear-gradient(135deg, var(--gold), var(--cyan));
-      font-weight: 800;
-    }
-
-    .sidebar nav { display: grid; gap: 6px; }
-    .sidebar a {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      min-height: 42px;
-      padding: 0 13px;
-      overflow: hidden;
-      border-radius: 16px;
-      color: var(--text3);
-      transition: color 0.25s ease, background 0.25s ease, transform 0.25s ease;
-    }
-    .sidebar a span:last-child { opacity: 0; white-space: nowrap; transform: translateX(-8px); transition: all 0.25s ease; }
-    .sidebar:hover a span:last-child, .sidebar.open a span:last-child { opacity: 1; transform: translateX(0); }
-    .sidebar a.active, .sidebar a:hover { color: var(--gold); background: rgba(124, 58, 237, 0.08); transform: translateX(2px); }
-    .mobile-toggle { display: none; }
+    .mobile-toggle, .sidebar { display: none; }
+    .view { display: block; }
+    .view.hidden { display: none; }
 
     section { scroll-margin-top: 110px; }
     .hero {
@@ -209,9 +187,11 @@
       padding: 54px 40px;
       margin-top: 24px;
       border: 1px solid var(--border);
-      border-radius: 30px;
+      border-radius: 34px;
       overflow: hidden;
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.55));
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.64)),
+        linear-gradient(135deg, rgba(91, 143, 168, 0.08), rgba(143, 183, 178, 0.08));
       backdrop-filter: blur(22px);
       box-shadow: var(--shadow);
     }
@@ -221,8 +201,8 @@
       position: absolute;
       inset: -40%;
       background:
-        radial-gradient(circle at 20% 30%, rgba(124, 58, 237, 0.16), transparent 26%),
-        radial-gradient(circle at 78% 24%, rgba(6, 182, 212, 0.16), transparent 22%);
+        radial-gradient(circle at 20% 30%, rgba(91, 143, 168, 0.14), transparent 26%),
+        radial-gradient(circle at 78% 24%, rgba(143, 183, 178, 0.16), transparent 22%);
       animation: floatBg 12s ease-in-out infinite alternate;
     }
     @keyframes floatBg { to { transform: translate(24px, -18px); } }
@@ -250,11 +230,37 @@
       color: transparent;
     }
 
-    .typing { min-height: 44px; margin: 12px 0 18px; color: var(--cyan); font-size: clamp(1.25rem, 3vw, 1.85rem); font-weight: 600; }
+    .typing { min-height: 44px; margin: 12px 0 18px; color: var(--cyan); font-size: clamp(1.25rem, 3vw, 1.85rem); font-weight: 700; }
     .cursor { color: var(--gold); animation: blink 0.8s infinite; }
     @keyframes blink { 50% { opacity: 0; } }
     .hero p { max-width: 620px; color: var(--text2); }
     .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+    .signal-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 24px;
+      max-width: 660px;
+    }
+    .signal {
+      padding: 13px 14px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.66);
+      box-shadow: 0 14px 34px rgba(15, 23, 42, 0.06);
+    }
+    .signal strong {
+      display: block;
+      color: var(--navy);
+      font-size: 0.92rem;
+      line-height: 1.25;
+    }
+    .signal span {
+      display: block;
+      margin-top: 4px;
+      color: var(--text3);
+      font-size: 0.78rem;
+    }
     .contact-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; color: var(--text3); }
     .contact-pills a {
       padding: 10px 14px;
@@ -274,15 +280,26 @@
       border: 1px solid var(--border2);
       border-radius: 28px 72px 28px 72px;
       background: linear-gradient(135deg, #ffffff, #f1f5f9);
-      box-shadow: 0 26px 80px rgba(124, 58, 237, 0.16);
+      box-shadow: 0 26px 80px rgba(91, 143, 168, 0.16);
     }
     .profile-card img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-panel {
+      width: min(100%, 370px);
+      margin: 28px auto 0;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.76);
+      box-shadow: 0 20px 48px rgba(15, 23, 42, 0.08);
+    }
+    .hero-panel h3 { color: var(--navy); font-size: 1.35rem; margin-bottom: 8px; }
+    .hero-panel ul { display: grid; gap: 8px; margin-left: 18px; color: var(--text2); font-size: 0.93rem; }
     .profile-fallback {
       width: 100%;
       height: 100%;
       display: grid;
       place-items: center;
-      color: rgba(124, 58, 237, 0.42);
+      color: rgba(91, 143, 168, 0.42);
       font-family: "Cormorant Garamond", serif;
       font-size: 5rem;
       font-weight: 700;
@@ -300,19 +317,31 @@
       font-weight: 800;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      box-shadow: 0 16px 32px rgba(124, 58, 237, 0.24);
+      box-shadow: 0 16px 32px rgba(91, 143, 168, 0.24);
       white-space: nowrap;
     }
 
     .section-card {
+      position: relative;
+      overflow: hidden;
       margin-top: 28px;
-      padding: 32px;
+      padding: 34px;
       border: 1px solid var(--border);
       border-radius: 26px;
-      background: rgba(255, 255, 255, 0.72);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.68)),
+        rgba(255, 255, 255, 0.72);
       backdrop-filter: blur(24px);
       box-shadow: var(--shadow);
     }
+    .section-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(135deg, rgba(91, 143, 168, 0.04), transparent 28%, rgba(79, 127, 122, 0.035));
+    }
+    .section-card > * { position: relative; z-index: 1; }
     .section-head { margin-bottom: 24px; }
     .section-head h2 { font-size: clamp(2.1rem, 5vw, 3.4rem); }
     .rule { width: 56px; height: 2px; margin-top: 14px; background: linear-gradient(90deg, var(--gold), transparent); }
@@ -335,8 +364,8 @@
     .stat-row span { display: block; color: var(--text3); font-size: 0.82rem; }
 
     .metric-grid, .project-grid, .goal-grid, .activity-grid, .course-grid, .extra-grid { display: grid; gap: 18px; }
-    .metric-grid { grid-template-columns: repeat(3, 1fr); }
-    .project-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .metric-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .project-grid { grid-template-columns: 1fr; }
     .goal-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
     .course-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
     .extra-grid { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
@@ -348,7 +377,10 @@
       padding: 22px;
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.52));
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.58)),
+        rgba(255, 255, 255, 0.72);
+      box-shadow: 0 16px 38px rgba(15, 23, 42, 0.06);
       transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     }
     .glass-card::before {
@@ -356,12 +388,12 @@
       position: absolute;
       inset: 0;
       pointer-events: none;
-      background: radial-gradient(circle at 78% 18%, rgba(124, 58, 237, 0.09), transparent 44%);
+      background: radial-gradient(circle at 78% 18%, rgba(91, 143, 168, 0.09), transparent 44%);
     }
     .glass-card:hover { transform: translateY(-5px); border-color: var(--border2); box-shadow: var(--glow); }
     .glass-card > * { position: relative; z-index: 1; }
 
-    .metric-card span { color: var(--text3); font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; }
+    .metric-card span { color: var(--text3); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
     .metric-card strong {
       display: block;
       margin: 8px 0;
@@ -372,7 +404,7 @@
     }
 
     .timeline { position: relative; display: grid; gap: 18px; padding-left: 22px; }
-    .timeline::before { content: ""; position: absolute; left: 3px; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(var(--gold), rgba(6, 182, 212, 0.2)); }
+    .timeline::before { content: ""; position: absolute; left: 3px; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(var(--gold), rgba(79, 127, 122, 0.2)); }
     .tl-item { position: relative; }
     .tl-item::before {
       content: "";
@@ -383,14 +415,71 @@
       height: 12px;
       border-radius: 50%;
       background: var(--gold);
-      box-shadow: 0 0 0 6px rgba(124, 58, 237, 0.12);
+      box-shadow: 0 0 0 6px rgba(91, 143, 168, 0.12);
     }
     .tl-item h3, .project-card h3, .goal-card h3 { margin-bottom: 8px; font-size: 1.35rem; }
+    .project-card {
+      display: grid;
+      grid-template-columns: minmax(260px, 0.95fr) minmax(0, 1.35fr);
+      gap: 22px;
+      align-items: stretch;
+      min-height: 320px;
+      padding: 18px;
+    }
+    .project-media {
+      position: relative;
+      min-height: 280px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background:
+        linear-gradient(135deg, rgba(91, 143, 168, 0.12), rgba(143, 183, 178, 0.12)),
+        #f8fafc;
+    }
+    .project-media img {
+      width: 100%;
+      height: 100%;
+      min-height: 280px;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.35s ease, transform 0.45s ease;
+    }
+    .project-card:hover .project-media img { transform: scale(1.035); }
+    .project-fallback {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 26px;
+      color: var(--gold);
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 700;
+      text-align: center;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.64), rgba(255, 255, 255, 0.34)),
+        radial-gradient(circle at 24% 24%, rgba(91, 143, 168, 0.18), transparent 34%);
+    }
+    .project-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+      padding: 8px 4px;
+    }
     .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
-    .tag { padding: 7px 11px; border: 1px solid rgba(6, 182, 212, 0.18); border-radius: 999px; color: var(--cyan); background: rgba(6, 182, 212, 0.07); font-size: 0.78rem; font-weight: 600; }
-    .badge { display: inline-flex; margin-bottom: 10px; padding: 6px 10px; border-radius: 999px; border: 1px solid var(--border2); color: var(--gold); background: rgba(124, 58, 237, 0.08); font-size: 0.78rem; font-weight: 700; }
+    .tag { padding: 7px 11px; border: 1px solid rgba(79, 127, 122, 0.18); border-radius: 999px; color: var(--cyan); background: rgba(79, 127, 122, 0.07); font-size: 0.78rem; font-weight: 600; }
+    .badge { display: inline-flex; margin-bottom: 10px; padding: 6px 10px; border-radius: 999px; border: 1px solid var(--border2); color: var(--gold); background: rgba(91, 143, 168, 0.08); font-size: 0.78rem; font-weight: 700; }
+    .fit-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 22px;
+    }
+    .fit-card h3 { font-size: 1.25rem; margin-bottom: 8px; color: var(--navy); }
+    .fit-card p { color: var(--text2); font-size: 0.94rem; }
 
-    .learned { margin-top: 16px; padding: 13px; border-left: 3px solid var(--gold); border-radius: 0 14px 14px 0; background: rgba(124, 58, 237, 0.06); color: var(--text2); font-size: 0.9rem; }
+    .learned { margin-top: 16px; padding: 13px; border-left: 3px solid var(--gold); border-radius: 0 14px 14px 0; background: rgba(91, 143, 168, 0.06); color: var(--text2); font-size: 0.9rem; }
     .learned strong { display: block; color: var(--gold); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; }
 
     .planner { position: relative; display: grid; gap: 16px; }
@@ -405,12 +494,12 @@
       border-radius: 50%;
       border: 4px solid #f8fafc;
       background: var(--cyan);
-      box-shadow: 0 0 0 6px rgba(6, 182, 212, 0.12);
+      box-shadow: 0 0 0 6px rgba(79, 127, 122, 0.12);
     }
-    .plan-row.college .plan-node, .plan-row.current .plan-node { background: var(--gold); box-shadow: 0 0 0 7px rgba(124, 58, 237, 0.16); }
-    .plan-row.current .glass-card { border-color: rgba(124, 58, 237, 0.45); }
+    .plan-row.college .plan-node, .plan-row.current .plan-node { background: var(--gold); box-shadow: 0 0 0 7px rgba(91, 143, 168, 0.16); }
+    .plan-row.current .glass-card { border-color: rgba(91, 143, 168, 0.45); }
     .plan-time { display: block; color: var(--gold); font-weight: 800; margin-bottom: 4px; }
-    .kind { display: inline-flex; margin-top: 10px; padding: 5px 9px; border-radius: 999px; background: rgba(6, 182, 212, 0.08); color: var(--cyan); font-size: 0.72rem; text-transform: capitalize; }
+    .kind { display: inline-flex; margin-top: 10px; padding: 5px 9px; border-radius: 999px; background: rgba(79, 127, 122, 0.08); color: var(--cyan); font-size: 0.72rem; text-transform: capitalize; }
 
     .goal-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
     .status {
@@ -421,8 +510,8 @@
       padding: 7px 10px;
       border-radius: 999px;
       color: var(--cyan);
-      background: rgba(6, 182, 212, 0.08);
-      border: 1px solid rgba(6, 182, 212, 0.18);
+      background: rgba(79, 127, 122, 0.08);
+      border: 1px solid rgba(79, 127, 122, 0.18);
       font-size: 0.78rem;
       text-transform: capitalize;
     }
@@ -447,18 +536,28 @@
       right: 0;
       bottom: 0;
       z-index: 0;
-      background: linear-gradient(180deg, rgba(6, 182, 212, 0.42), rgba(124, 58, 237, 0.16));
+      background: linear-gradient(180deg, rgba(79, 127, 122, 0.42), rgba(91, 143, 168, 0.16));
       transition: height 0.5s ease;
     }
     .activity-card > *:not(.activity-bar) { position: relative; z-index: 1; }
     .activity-card strong { font-size: 1.1rem; }
     .activity-card span { color: var(--gold); font-weight: 800; }
+    .tool-section {
+      min-height: calc(100vh - 150px);
+      margin-top: 24px;
+    }
+    .tool-page-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
 
     .skill-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
     .contact-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 24px; }
     .contact-list { display: grid; gap: 12px; }
     .contact-row { display: flex; gap: 12px; align-items: center; color: var(--text2); }
-    .contact-ico { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: rgba(124, 58, 237, 0.08); color: var(--gold); }
+    .contact-ico { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: rgba(91, 143, 168, 0.08); color: var(--gold); }
     .form { display: grid; gap: 12px; }
     .field {
       width: 100%;
@@ -470,7 +569,7 @@
       color: var(--text);
       transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
-    .field:focus { border-color: var(--border2); box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.08); }
+    .field:focus { border-color: var(--border2); box-shadow: 0 0 0 4px rgba(91, 143, 168, 0.08); }
     textarea.field { min-height: 120px; resize: vertical; }
 
     footer {
@@ -544,7 +643,7 @@
       box-shadow: var(--shadow);
     }
     body.admin .admin-bar { display: flex; }
-    .admin-pill { padding: 8px 12px; border-radius: 999px; background: rgba(124, 58, 237, 0.09); color: var(--gold); font-size: 0.76rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+    .admin-pill { padding: 8px 12px; border-radius: 999px; background: rgba(91, 143, 168, 0.09); color: var(--gold); font-size: 0.76rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
     .edit-float { display: none; }
     body.admin .edit-float { display: inline-flex; }
 
@@ -552,40 +651,25 @@
     .reveal.in { opacity: 1; transform: translateY(0); }
 
     @media (max-width: 980px) {
-      .topbar nav { display: none; }
+      .topbar {
+        align-items: flex-start;
+        border-radius: 24px;
+      }
+      .topbar nav {
+        display: flex;
+        flex: 1;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        scrollbar-width: none;
+      }
+      .topbar nav::-webkit-scrollbar { display: none; }
+      .topbar nav a { flex: 0 0 auto; }
       .hero, .grid-2, .contact-grid { grid-template-columns: 1fr; }
+      .project-card { grid-template-columns: 1fr; }
+      .project-media, .project-media img { min-height: 230px; }
       .hero-visual { order: -1; }
-      .metric-grid, .activity-grid { grid-template-columns: repeat(2, 1fr); }
+      .metric-grid, .activity-grid, .fit-grid, .signal-strip { grid-template-columns: repeat(2, 1fr); }
       .skill-columns { grid-template-columns: 1fr; }
-      .sidebar {
-        left: 50%;
-        top: auto;
-        bottom: 14px;
-        width: min(calc(100% - 22px), 620px);
-        transform: translateX(-50%);
-        padding: 10px;
-      }
-      .sidebar:hover, .sidebar.open { width: min(calc(100% - 22px), 620px); }
-      .side-logo { display: none; }
-      .sidebar nav { display: flex; overflow-x: auto; scrollbar-width: none; }
-      .sidebar nav::-webkit-scrollbar { display: none; }
-      .sidebar a { flex: 0 0 auto; justify-content: center; }
-      .sidebar a span:last-child { display: none; }
-      .mobile-toggle {
-        display: grid;
-        place-items: center;
-        position: fixed;
-        right: 18px;
-        bottom: 82px;
-        z-index: 80;
-        width: 46px;
-        height: 46px;
-        border-radius: 16px;
-        color: var(--text);
-        border: 1px solid var(--border);
-        background: rgba(255, 255, 255, 0.9);
-        box-shadow: var(--shadow);
-      }
       .admin-bar { bottom: 86px; }
     }
 
@@ -594,7 +678,7 @@
       .topbar { border-radius: 22px; }
       .hero, .section-card { padding: 24px 18px; border-radius: 24px; }
       .profile-card { width: min(100%, 285px); }
-      .metric-grid, .activity-grid { grid-template-columns: 1fr; }
+      .metric-grid, .activity-grid, .fit-grid, .signal-strip { grid-template-columns: 1fr; }
       .activity-card { min-height: 150px; }
       .hero-actions, .top-actions { gap: 8px; }
       .btn, .ghost-btn, .icon-btn { padding: 0 12px; }
@@ -611,35 +695,39 @@
     </div>
   </div>
 
-  <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation">Menu</button>
-
-  <aside class="sidebar" id="sidebar" aria-label="Sidebar navigation">
-    <a class="side-logo" href="#home">PKS</a>
-    <nav id="sideNav"></nav>
-  </aside>
-
   <div class="page-shell">
     <header class="topbar">
-      <a class="brand" href="#home">PKS</a>
-      <nav>
-        <a href="#dashboard">Dashboard</a>
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#planner">Planner</a>
-        <a href="#goals">Goals</a>
-        <a href="#contact">Contact</a>
+      <a class="brand" href="#home" id="brandHome">PKS</a>
+      <nav id="topNav">
+        <a href="#home" data-nav="home" class="active">Home</a>
+        <a href="#dashboard" data-nav="dashboard">Dashboard</a>
+        <a href="#about" data-nav="about">About</a>
+        <a href="#projects" data-nav="projects">Projects</a>
+        <a href="#experience" data-nav="experience">Experience</a>
+        <a href="#skills" data-nav="skills">Skills</a>
+        <a href="#achievements" data-nav="achievements">Proof</a>
+        <a href="#contact" data-nav="contact">Contact</a>
+        <a href="#" data-page="planner">Planner</a>
+        <a href="#" data-page="goals">Goals</a>
+        <a href="#" data-page="progress">Progress</a>
       </nav>
       <div class="top-actions">
         <button class="ghost-btn" id="adminTopBtn">Admin</button>
       </div>
     </header>
 
+    <main class="view" id="mainPortfolio">
     <section class="hero reveal" id="home">
       <div class="hero-copy">
         <div class="eyebrow">ECE Student - PSG iTech - Batch of 2028</div>
         <h1><span class="gradient-text" id="heroName">Prithiksha K S</span></h1>
         <div class="typing"><span id="typeText"></span><span class="cursor">_</span></div>
-        <p id="heroBio">Innovative and enthusiastic Electronics and Communication Engineering student passionate about IoT, Embedded Systems, and VLSI. Dedicated to hackathons, ideathons, and practical technology that connects hardware with intelligent behavior.</p>
+        <p id="heroBio">Electronics and Communication Engineering student with a strong academic record, hands-on IoT and embedded systems projects, and growing focus in VLSI and hardware design. I enjoy translating circuit-level thinking into practical prototypes, clear documentation, and interview-ready engineering outcomes.</p>
+        <div class="signal-strip">
+          <div class="signal"><strong>Target Role</strong><span>VLSI / Embedded / Hardware Internship</span></div>
+          <div class="signal"><strong>Academic Signal</strong><span>9.19 CGPA till Semester 3</span></div>
+          <div class="signal"><strong>Builder Profile</strong><span>AI, IoT, biometric and sustainability projects</span></div>
+        </div>
         <div class="hero-actions">
           <a class="btn" href="#projects">View My Work</a>
           <a class="ghost-btn" href="resume.pdf" target="_blank">View Resume</a>
@@ -657,6 +745,14 @@
           <img src="profile.jpg" alt="Prithiksha K S" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'profile-fallback',textContent:'PKS'}))" />
         </div>
         <div class="floating-badge">Open to Internships</div>
+        <div class="hero-panel">
+          <h3>Recruiter Snapshot</h3>
+          <ul>
+            <li>ECE undergraduate with consistent academic performance.</li>
+            <li>Comfortable with Python, C/C++, Embedded C, Arduino and IoT workflows.</li>
+            <li>Interested in VLSI fundamentals, digital design and hardware-oriented problem solving.</li>
+          </ul>
+        </div>
       </div>
     </section>
 
@@ -667,9 +763,10 @@
         <div class="rule"></div>
       </div>
       <div class="metric-grid">
-        <article class="glass-card metric-card"><span>Total Projects</span><strong data-count="6">0</strong><p>IoT, AI, embedded systems, sustainability, and secure prototypes.</p></article>
-        <article class="glass-card metric-card"><span>Skills Count</span><strong data-count="16">0</strong><p>Technical and soft skills actively growing toward hardware design roles.</p></article>
-        <article class="glass-card metric-card"><span>Activity Status</span><strong data-count="71">0</strong><p>Weekly balance across study, project work, college, and personal reset.</p></article>
+        <article class="glass-card metric-card"><span>CGPA</span><strong>9.19</strong><p>Till Semester 3, showing consistent academic discipline.</p></article>
+        <article class="glass-card metric-card"><span>Projects</span><strong data-count="6">0</strong><p>Working prototypes and concepts across IoT, AI, embedded systems and security.</p></article>
+        <article class="glass-card metric-card"><span>Finalist Runs</span><strong data-count="4">0</strong><p>Hackathon and ideathon exposure with presentation and rapid prototyping practice.</p></article>
+        <article class="glass-card metric-card"><span>Readiness</span><strong data-count="82">0</strong><p>Portfolio, fundamentals and project practice aligned for internship interviews.</p></article>
       </div>
     </section>
 
@@ -681,8 +778,13 @@
       </div>
       <div class="grid-2">
         <div>
-          <p class="muted" id="aboutText">A curious builder with a strong inclination toward creating systems that connect hardware with intelligent behavior. Focused on IoT, embedded systems, and hardware design, with a mindset that blends technical depth with real-world impact. I thrive in hands-on environments where ideas evolve into working solutions, from hackathons to self-driven projects.</p>
+          <p class="muted" id="aboutText">I am a curious ECE student who likes building systems where sensors, logic, software and user needs meet. My strongest interests are IoT, embedded systems, VLSI fundamentals and intelligent hardware applications. I try to approach projects like an engineer: understand the problem, define the constraints, build a working path, test the behavior, and explain the result clearly.</p>
           <div class="tag-row" id="aboutTags"></div>
+          <div class="fit-grid">
+            <article class="glass-card fit-card"><h3>Interview Strength</h3><p>Can discuss projects from problem statement to architecture, components, trade-offs and learning.</p></article>
+            <article class="glass-card fit-card"><h3>Engineering Mindset</h3><p>Comfortable learning new tools quickly and connecting theory with practical implementation.</p></article>
+            <article class="glass-card fit-card"><h3>Team Value</h3><p>Leadership roles and hackathon exposure support communication, ownership and collaboration.</p></article>
+          </div>
         </div>
         <div class="stats">
           <div class="stat-row"><strong>9.19</strong><div>Current CGPA<span>Till Semester 3</span></div></div>
@@ -706,23 +808,6 @@
     <section class="section-card reveal" id="experience">
       <div class="section-head"><div class="eyebrow">Work History</div><h2>Experience</h2><div class="rule"></div></div>
       <div class="timeline" id="experienceList"></div>
-    </section>
-
-    <section class="section-card reveal" id="planner">
-      <div class="section-head"><div class="eyebrow">Smart Calendar</div><h2>Daily Planner</h2><div class="rule"></div></div>
-      <div class="planner" id="plannerList"></div>
-      <div class="admin-tools"><button class="ghost-btn" onclick="addPlannerBlock()">Add Planner Block</button></div>
-    </section>
-
-    <section class="section-card reveal" id="goals">
-      <div class="section-head"><div class="eyebrow">Editable Focus Cards</div><h2>Goals</h2><div class="rule"></div></div>
-      <div class="goal-grid" id="goalsGrid"></div>
-      <div class="admin-tools"><button class="ghost-btn" onclick="addGoal()">Add Goal</button></div>
-    </section>
-
-    <section class="section-card reveal" id="progress">
-      <div class="section-head"><div class="eyebrow">Weekly Rhythm</div><h2>Activity / Progress</h2><div class="rule"></div></div>
-      <div class="activity-grid" id="activityGrid"></div>
     </section>
 
     <section class="section-card reveal" id="skills">
@@ -764,6 +849,19 @@
       <p>Designed and built by <strong>Prithiksha K S</strong> - 2026</p>
       <a href="#" onclick="openLogin();return false;">Admin / Edit</a>
     </footer>
+    </main>
+
+    <main class="view hidden" id="toolPage">
+      <section class="section-card reveal in tool-section" id="toolSection">
+        <div class="section-head">
+          <div class="eyebrow" id="toolEyebrow">Smart Calendar</div>
+          <h2 id="toolTitle">Daily Planner</h2>
+          <div class="rule"></div>
+        </div>
+        <div id="toolIntro" class="muted" style="margin-bottom:22px"></div>
+        <div id="toolContent"></div>
+      </section>
+    </main>
   </div>
 
   <div class="admin-bar">
@@ -814,27 +912,30 @@
     const ADMIN_EMAIL = "prithikshaks@gmail.com";
 
     const defaultData = {
+      designVersion: "mild-light-professional-pages-2026-04",
       hero: {
         name: "Prithiksha K S",
-        bio: "Innovative and enthusiastic Electronics and Communication Engineering student passionate about IoT, Embedded Systems, and VLSI. Dedicated to hackathons, ideathons, and practical technology that connects hardware with intelligent behavior.",
-        taglines: ["ECE Engineer", "IoT & Embedded Systems Enthusiast", "VLSI Aspirant", "Hackathon Finalist", "Problem Solver"]
+        bio: "Electronics and Communication Engineering student with a strong academic record, hands-on IoT and embedded systems projects, and growing focus in VLSI and hardware design. I enjoy translating circuit-level thinking into practical prototypes, clear documentation, and interview-ready engineering outcomes.",
+        taglines: ["ECE Engineer", "Embedded Systems Builder", "VLSI & Hardware Design Aspirant", "IoT Project Developer", "Hackathon Finalist"]
       },
-      aboutTags: ["IoT", "Embedded Systems", "VLSI", "AI", "Hardware Design", "Hackathons"],
+      aboutTags: ["IoT", "Embedded Systems", "VLSI Fundamentals", "Digital Electronics", "Python", "C/C++", "Hardware Prototyping", "Technical Presentation"],
       education: [
-        { badge: "B.E. ECE", title: "Bachelor of Engineering - Electronics and Communication Engineering", org: "PSG Institute of Technology and Applied Research", date: "2024 - 2028", desc: "Current CGPA: 9.19 till Semester 3. Focused on IoT, embedded systems, digital electronics, and VLSI." },
-        { badge: "Grade 12", title: "Higher Secondary Certificate", org: "SSM Lakshmi Ammal Matric Higher Secondary School", date: "2022 - 2024", desc: "Scored 95.5 percent in science stream with Biology." },
-        { badge: "Grade 10", title: "Secondary School Certificate", org: "SSM Lakshmi Ammal Matric Higher Secondary School", date: "2021 - 2022", desc: "Scored 97 percent with distinction in Mathematics." }
+        { badge: "B.E. ECE", title: "Bachelor of Engineering - Electronics and Communication Engineering", org: "PSG Institute of Technology and Applied Research", date: "2024 - 2028", desc: "Current CGPA: 9.19 till Semester 3. Coursework interests include digital circuits, embedded systems, communication fundamentals, IoT and VLSI design." },
+        { badge: "Grade 12", title: "Higher Secondary Certificate", org: "SSM Lakshmi Ammal Matric Higher Secondary School", date: "2022 - 2024", desc: "Scored 95.5 percent in the science stream with strong preparation in Physics and Mathematics." },
+        { badge: "Grade 10", title: "Secondary School Certificate", org: "SSM Lakshmi Ammal Matric Higher Secondary School", date: "2021 - 2022", desc: "Scored 97 percent, building a consistent academic foundation before engineering." }
       ],
       experience: [
-        { badge: "Open", title: "Open to VLSI and Hardware Internships", org: "Internship Search", date: "2026", desc: "Looking for opportunities to apply embedded systems, digital design, IoT, and hardware design skills in practical engineering environments." }
+        { badge: "Internship Target", title: "VLSI / Embedded / Hardware Design Internship", org: "Availability: Open to internship opportunities", date: "2026", desc: "Seeking a role where I can contribute to digital logic, embedded systems, testing, documentation, and prototype development while learning from experienced hardware teams." },
+        { badge: "Leadership", title: "Program Manager - FESTO (FATC)", org: "Fabrication and Technology Club", date: "College Role", desc: "Coordinate technical programs and student activities, strengthening planning, communication, event ownership and team collaboration." },
+        { badge: "Creative Ops", title: "Joint Secretary / Editor Roles", org: "Dance Club and Student Union Multimedia Team", date: "College Role", desc: "Contribute to cultural coordination and media editing, adding presentation confidence and creative discipline to technical work." }
       ],
       projects: [
-        { icon: "AI", title: "Bias Mirror - Ethical AI for Social Good", desc: "AI system concept to detect and reduce bias in recruitment using ML models and fairness frameworks.", tags: ["Python", "Machine Learning", "FairLearn", "AI Ethics"], learned: "Fairness-aware ML, bias detection in NLP pipelines, and responsible AI design." },
-        { icon: "IoT", title: "Smart Solar Water Heating & Alert System", desc: "IoT-based system to optimize solar water heating with automated temperature control and real-time Blynk alerts.", tags: ["IoT", "Arduino", "Blynk", "Sensors"], learned: "Sensor integration, real-time monitoring, and solar energy system design." },
-        { icon: "RX", title: "Radiolink-X - AI Radiology Assistant", desc: "AI concept for early tumor detection using non-imaging diagnostic techniques and machine learning.", tags: ["AI", "Healthcare", "Python"], learned: "Medical AI application design and ethical AI thinking in healthcare." },
-        { icon: "BIO", title: "Fingerprint Voting System", desc: "Biometric voting prototype for secure and transparent elections using fingerprint authentication.", tags: ["Biometrics", "Embedded Systems", "Security"], learned: "Authentication pipelines and secure hardware-software integration." },
-        { icon: "EV", title: "Driving with Wind - EV Innovations", desc: "Green energy model that harnesses vehicle wind flow to generate auxiliary power for EV efficiency.", tags: ["EV", "Green Energy", "Innovation"], learned: "Aerodynamic energy harvesting and sustainable engineering approaches." },
-        { icon: "H2O", title: "Water Level Management System", desc: "Smart IoT solution to monitor and control water levels automatically, preventing overflow and conserving water.", tags: ["IoT", "Arduino", "Automation"], learned: "Sensor calibration, control loops, and automated decision logic." }
+        { icon: "AI", imageBase: "bias_mirror", title: "Bias Mirror - Ethical AI for Social Good", desc: "Designed an AI-driven recruitment fairness concept to identify biased patterns and support more responsible screening decisions.", tags: ["Python", "Machine Learning", "FairLearn", "AI Ethics"], learned: "Interview angle: explain dataset bias, fairness metrics, model evaluation and why responsible AI matters in real products." },
+        { icon: "IoT", imageBase: "smart_solar_water_heating", title: "Smart Solar Water Heating & Alert System", desc: "Built an IoT-based monitoring concept for solar water heating with temperature sensing, automation logic and Blynk-style mobile alerts.", tags: ["IoT", "Arduino", "Blynk", "Sensors"], learned: "Interview angle: discuss sensor flow, threshold decisions, alert logic, energy efficiency and embedded constraints." },
+        { icon: "RX", imageBase: "radiolink_x", title: "Radiolink-X - AI Radiology Assistant", desc: "Proposed a healthcare AI concept for early tumor risk assistance using structured diagnostic signals and machine learning classification.", tags: ["AI", "Healthcare", "Python", "System Design"], learned: "Interview angle: communicate problem framing, ethical limits, medical safety and how AI support tools should be validated." },
+        { icon: "BIO", imageBase: "fingerprint_voting_system", title: "Fingerprint Voting System", desc: "Created a biometric voting prototype concept focused on identity verification, duplicate prevention and secure election flow.", tags: ["Biometrics", "Embedded Systems", "Security"], learned: "Interview angle: explain authentication, false acceptance/rejection risk, database matching and secure system design." },
+        { icon: "EV", imageBase: "driving_with_wind", title: "Driving with Wind - EV Innovations", desc: "Developed a sustainable energy concept that studies vehicle wind flow as an auxiliary source for EV subsystem support.", tags: ["EV", "Green Energy", "Innovation"], learned: "Interview angle: present assumptions, feasibility trade-offs, energy conversion limits and sustainable engineering thinking." },
+        { icon: "H2O", imageBase: "water_level_management_system", title: "Water Level Management System", desc: "Designed a water-level automation system using sensing and control logic to prevent overflow and support water conservation.", tags: ["IoT", "Arduino", "Automation", "Control Logic"], learned: "Interview angle: describe sensor calibration, control thresholds, relay logic, failure states and practical deployment concerns." }
       ],
       planner: [
         { time: "6:15 AM", activity: "Wake up, freshen up, and light stretching", kind: "routine" },
@@ -847,8 +948,8 @@
         { time: "10:00 PM", activity: "Light review, plan tomorrow, and wind down", kind: "routine" }
       ],
       goals: [
-        { title: "Build stronger VLSI fundamentals", progress: 68, status: "ongoing" },
-        { title: "Refine internship-ready project portfolio", progress: 82, status: "ongoing" },
+        { title: "Strengthen digital design and VLSI fundamentals", progress: 68, status: "ongoing" },
+        { title: "Prepare concise project explanations for interviews", progress: 82, status: "ongoing" },
         { title: "Maintain weekly coding and embedded practice", progress: 74, status: "ongoing" }
       ],
       activity: [
@@ -861,13 +962,14 @@
         { day: "Sun", focus: 46, label: "Reset" }
       ],
       skills: {
-        technical: ["Python", "C Programming", "C++", "Embedded C", "IoT", "VLSI", "Arduino", "Blynk", "MS Excel", "MS PowerPoint", "LaTeX", "Canva"],
-        soft: ["Team Leadership", "Communication", "Presentation", "Public Speaking", "Management", "Problem Solving"]
+        technical: ["Python", "C Programming", "C++", "Embedded C", "IoT", "VLSI Basics", "Digital Circuits", "Arduino", "Blynk", "Sensor Integration", "MS Excel", "LaTeX"],
+        soft: ["Team Leadership", "Communication", "Presentation", "Public Speaking", "Event Management", "Problem Solving", "Documentation"]
       },
       achievements: [
         { title: "Itech Ideathon 2025", issuer: "PSG iTech", result: "Finalist" },
         { title: "QUALCOMM Edge AI Hackathon 2025", issuer: "Qualcomm", result: "Finalist" },
         { title: "Code'O Clock - 24-hour Hackathon", issuer: "Inter-college", result: "Finalist" },
+        { title: "Caterpillar Tech Challenge", issuer: "Caterpillar", result: "Finalist" },
         { title: "Digital Circuits", issuer: "NPTEL", result: "Course" },
         { title: "VLSI Design", issuer: "SmartEd Learning", result: "Course" },
         { title: "Verilog", issuer: "Udemy", result: "Course" }
@@ -876,24 +978,18 @@
 
     let data = structuredClone(defaultData);
     let isAdmin = false;
-
-    const navItems = [
-      ["home", "Home", "H"],
-      ["about", "About", "A"],
-      ["projects", "Projects", "P"],
-      ["experience", "Experience", "E"],
-      ["contact", "Contact", "C"],
-      ["dashboard", "Dashboard", "D"],
-      ["planner", "Daily Planner", "Pl"],
-      ["goals", "Goals", "G"],
-      ["progress", "Progress", "Pr"]
-    ];
+    let currentToolPage = "";
+    let carouselTimers = [];
 
     function escapeHtml(value) {
       return String(value ?? "").replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" }[char]));
     }
 
     function mergeData(saved = {}) {
+      if (saved.designVersion !== defaultData.designVersion) {
+        return structuredClone(defaultData);
+      }
+
       return {
         ...structuredClone(defaultData),
         ...saved,
@@ -917,8 +1013,16 @@
       setTimeout(() => el.classList.remove("show"), 2800);
     }
 
-    function renderNav() {
-      document.getElementById("sideNav").innerHTML = navItems.map(([id, label, icon]) => `<a href="#${id}" data-nav="${id}"><span>${icon}</span><span>${label}</span></a>`).join("");
+    function projectSlug(title) {
+      return String(title || "project")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "_")
+        .replace(/^_+|_+$/g, "");
+    }
+
+    function projectImages(project) {
+      const slug = project.imageBase || projectSlug(project.title);
+      return [1, 2, 3, 4, 5].map(number => `${slug}_${number}.jpg`);
     }
 
     function renderTags(id, tags) {
@@ -939,13 +1043,20 @@
     function renderProjects() {
       document.getElementById("projectsGrid").innerHTML = data.projects.map(project => `
         <article class="glass-card project-card">
-          <span class="badge">${escapeHtml(project.icon)}</span>
-          <h3>${escapeHtml(project.title)}</h3>
-          <p class="muted">${escapeHtml(project.desc)}</p>
-          <div class="tag-row">${project.tags.map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join("")}</div>
-          <div class="learned"><strong>What I Learned</strong>${escapeHtml(project.learned)}</div>
+          <div class="project-media" data-images="${escapeHtml(projectImages(project).join("|"))}" data-fallback="${escapeHtml(project.icon)}">
+            <img src="${escapeHtml(projectImages(project)[0])}" alt="${escapeHtml(project.title)} project image" onerror="showProjectFallback(this)" />
+            <div class="project-fallback" hidden>${escapeHtml(project.icon)}</div>
+          </div>
+          <div class="project-body">
+            <span class="badge">${escapeHtml(project.icon)}</span>
+            <h3>${escapeHtml(project.title)}</h3>
+            <p class="muted">${escapeHtml(project.desc)}</p>
+            <div class="tag-row">${project.tags.map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join("")}</div>
+            <div class="learned"><strong>What I Learned</strong>${escapeHtml(project.learned)}</div>
+          </div>
         </article>
       `).join("");
+      setupProjectCarousels();
     }
 
     function currentPlannerIndex() {
@@ -961,7 +1072,7 @@
 
     function renderPlanner() {
       const current = currentPlannerIndex();
-      document.getElementById("plannerList").innerHTML = data.planner.map((item, index) => `
+      return data.planner.map((item, index) => `
         <article class="plan-row ${escapeHtml(item.kind)} ${index === current ? "current" : ""}">
           <div class="plan-node"></div>
           <div class="glass-card">
@@ -978,7 +1089,7 @@
     }
 
     function renderGoals() {
-      document.getElementById("goalsGrid").innerHTML = data.goals.map((goal, index) => `
+      return `<div class="goal-grid">` + data.goals.map((goal, index) => `
         <article class="glass-card goal-card">
           <div class="goal-top">
             <h3>${escapeHtml(goal.title)}</h3>
@@ -991,11 +1102,11 @@
             <button class="ghost-btn" onclick="deleteGoal(${index})">Delete</button>
           </div>
         </article>
-      `).join("");
+      `).join("") + `</div>`;
     }
 
     function renderActivity() {
-      document.getElementById("activityGrid").innerHTML = data.activity.map((item, index) => `
+      return `<div class="activity-grid">` + data.activity.map((item, index) => `
         <article class="glass-card activity-card">
           <div class="activity-bar" style="height:${Math.max(Number(item.focus) || 0, 12)}%"></div>
           <strong>${escapeHtml(item.day)}</strong>
@@ -1003,7 +1114,7 @@
           <p>${escapeHtml(item.label)}</p>
           <div class="admin-tools"><button class="ghost-btn" onclick="editActivity(${index})">Edit</button></div>
         </article>
-      `).join("");
+      `).join("") + `</div>`;
     }
 
     function renderAchievements() {
@@ -1023,13 +1134,10 @@
       renderTimeline("educationList", data.education);
       renderTimeline("experienceList", data.experience);
       renderProjects();
-      renderPlanner();
-      renderGoals();
-      renderActivity();
+      if (currentToolPage) renderToolPage(currentToolPage);
       renderTags("techSkills", data.skills.technical);
       renderTags("softSkills", data.skills.soft);
       renderAchievements();
-      renderNav();
       setupReveal();
       setupSpy();
     }
@@ -1109,19 +1217,19 @@
         status: document.getElementById("goalStatus").value
       };
       closeModal("editModal");
-      renderGoals();
+      renderToolPage("goals");
       toast("Goal updated");
     };
 
     window.addGoal = function () {
       data.goals.push({ title: "New personal goal", progress: 20, status: "ongoing" });
-      renderGoals();
+      renderToolPage("goals");
     };
 
     window.deleteGoal = function (index) {
       if (!confirm("Delete this goal?")) return;
       data.goals.splice(index, 1);
-      renderGoals();
+      renderToolPage("goals");
     };
 
     window.editPlanner = function (index) {
@@ -1147,19 +1255,19 @@
         kind: document.getElementById("planKind").value
       };
       closeModal("editModal");
-      renderPlanner();
+      renderToolPage("planner");
       toast("Planner updated");
     };
 
     window.addPlannerBlock = function () {
       data.planner.push({ time: "New time", activity: "New activity", kind: "routine" });
-      renderPlanner();
+      renderToolPage("planner");
     };
 
     window.deletePlanner = function (index) {
       if (!confirm("Delete this planner block?")) return;
       data.planner.splice(index, 1);
-      renderPlanner();
+      renderToolPage("planner");
     };
 
     window.editActivity = function (index) {
@@ -1177,7 +1285,7 @@
       data.activity[index].focus = Math.min(100, Math.max(0, Number(document.getElementById("activityFocus").value) || 0));
       data.activity[index].label = document.getElementById("activityLabel").value;
       closeModal("editModal");
-      renderActivity();
+      renderToolPage("progress");
       toast("Activity updated");
     };
 
@@ -1195,16 +1303,105 @@
     }
 
     function setupSpy() {
+      if (currentToolPage) return;
       const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
           if (!entry.isIntersecting) return;
           document.querySelectorAll("[data-nav]").forEach(link => link.classList.toggle("active", link.dataset.nav === entry.target.id));
         });
       }, { rootMargin: "-35% 0px -45% 0px", threshold: 0.12 });
-      navItems.forEach(([id]) => {
+      ["home", "dashboard", "about", "projects", "experience", "skills", "achievements", "contact"].forEach(id => {
         const el = document.getElementById(id);
         if (el) observer.observe(el);
       });
+    }
+
+    window.showProjectFallback = function (image) {
+      const media = image.parentElement;
+      const images = (media.dataset.images || "").split("|").filter(Boolean);
+      const tried = Number(media.dataset.tried || 0) + 1;
+      media.dataset.tried = String(tried);
+
+      if (tried < images.length) {
+        const nextIndex = tried % images.length;
+        media.dataset.index = String(nextIndex);
+        image.src = images[nextIndex];
+        return;
+      }
+
+      image.style.display = "none";
+      const fallback = media.querySelector(".project-fallback");
+      if (fallback) fallback.hidden = false;
+    };
+
+    function setupProjectCarousels() {
+      carouselTimers.forEach(timer => clearInterval(timer));
+      carouselTimers = [];
+      document.querySelectorAll(".project-media").forEach(media => {
+        const image = media.querySelector("img");
+        const fallback = media.querySelector(".project-fallback");
+        const images = (media.dataset.images || "").split("|").filter(Boolean);
+        if (!image || images.length < 2) return;
+        let index = 0;
+        const timer = setInterval(() => {
+          if (fallback && !fallback.hidden) return;
+          index = (Number(media.dataset.index || index) + 1) % images.length;
+          media.dataset.index = String(index);
+          media.dataset.tried = "0";
+          image.style.opacity = "0";
+          setTimeout(() => {
+            image.src = images[index];
+            image.style.display = "block";
+            image.style.opacity = "1";
+          }, 220);
+        }, 5000);
+        carouselTimers.push(timer);
+      });
+    }
+
+    function setActiveNav(id) {
+      document.querySelectorAll("#topNav a").forEach(link => {
+        const isActive = link.dataset.nav === id || link.dataset.page === id;
+        link.classList.toggle("active", isActive);
+      });
+    }
+
+    function showMain(targetId = "home") {
+      currentToolPage = "";
+      document.getElementById("mainPortfolio").classList.remove("hidden");
+      document.getElementById("toolPage").classList.add("hidden");
+      setActiveNav(targetId);
+      requestAnimationFrame(() => document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth", block: "start" }));
+    }
+
+    function renderToolPage(page) {
+      currentToolPage = page;
+      const titleMap = {
+        planner: ["Smart Calendar", "Daily Planner", "A focused routine from morning to sleep, with college time protected as a fixed weekday block."],
+        goals: ["Focus System", "Goals", "Editable goal cards for internship readiness, VLSI fundamentals, projects and practice."],
+        progress: ["Weekly Rhythm", "Activity / Progress", "A clean weekly activity snapshot for study, project work and recovery balance."]
+      };
+      const [eyebrow, title, intro] = titleMap[page] || titleMap.planner;
+      document.getElementById("toolEyebrow").textContent = eyebrow;
+      document.getElementById("toolTitle").textContent = title;
+      document.getElementById("toolIntro").textContent = intro;
+      if (page === "planner") {
+        document.getElementById("toolContent").innerHTML = `<div class="tool-page-actions admin-tools"><button class="ghost-btn" onclick="addPlannerBlock()">Add Planner Block</button></div><div class="planner">${renderPlanner()}</div>`;
+      }
+      if (page === "goals") {
+        document.getElementById("toolContent").innerHTML = `<div class="tool-page-actions admin-tools"><button class="ghost-btn" onclick="addGoal()">Add Goal</button></div>${renderGoals()}`;
+      }
+      if (page === "progress") {
+        document.getElementById("toolContent").innerHTML = renderActivity();
+      }
+    }
+
+    function showToolPage(page) {
+      document.getElementById("mainPortfolio").classList.add("hidden");
+      document.getElementById("toolPage").classList.remove("hidden");
+      renderToolPage(page);
+      setActiveNav(page);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     function startTypewriter() {
@@ -1231,30 +1428,61 @@
         const timer = setInterval(() => {
           current += step;
           if (current >= target) { current = target; clearInterval(timer); }
-          counter.textContent = counter.dataset.count === "71" ? `${current}%` : String(current);
+          counter.textContent = ["82"].includes(counter.dataset.count) ? `${current}%` : String(current);
         }, 28);
       });
     }
 
     document.getElementById("adminTopBtn").addEventListener("click", () => isAdmin ? logoutAdmin() : openLogin());
-    document.getElementById("mobileToggle").addEventListener("click", () => document.getElementById("sidebar").classList.toggle("open"));
+    document.getElementById("brandHome").addEventListener("click", event => {
+      event.preventDefault();
+      showMain("home");
+    });
+    document.querySelectorAll("#topNav a").forEach(link => {
+      link.addEventListener("click", event => {
+        if (link.dataset.page) {
+          event.preventDefault();
+          showToolPage(link.dataset.page);
+          return;
+        }
+        if (link.dataset.nav) {
+          event.preventDefault();
+          showMain(link.dataset.nav);
+        }
+      });
+    });
     document.addEventListener("keydown", event => {
       if (event.ctrlKey && event.shiftKey && event.key.toLowerCase() === "a") openLogin();
       if (event.key === "Escape") document.querySelectorAll(".modal-backdrop.open").forEach(modal => modal.classList.remove("open"));
     });
 
+    function hideLoader() {
+      setTimeout(() => {
+        const loader = document.getElementById("loading");
+        if (!loader) return;
+        loader.style.opacity = "0";
+        loader.style.visibility = "hidden";
+      }, 600);
+    }
+
+    renderAll();
+    startTypewriter();
+    setTimeout(animateCounters, 500);
+    hideLoader();
+
     onAuthStateChanged(auth, user => {
-      isAdmin = !!user && user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase();
+      isAdmin = !!user && user.email && user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase();
       document.body.classList.toggle("admin", isAdmin);
       document.getElementById("adminTopBtn").textContent = isAdmin ? "Sign Out" : "Admin";
-      renderPlanner();
-      renderGoals();
-      renderActivity();
+      if (currentToolPage) renderToolPage(currentToolPage);
     });
 
     try {
       const snap = await getDoc(doc(db, "portfolio", "main"));
-      if (snap.exists()) data = mergeData(snap.data());
+      if (snap.exists()) {
+        data = mergeData(snap.data());
+        renderAll();
+      }
       onSnapshot(doc(db, "portfolio", "main"), snapshot => {
         if (!snapshot.exists()) return;
         data = mergeData(snapshot.data());
@@ -1263,17 +1491,6 @@
     } catch (error) {
       console.warn("Firebase data load skipped:", error);
     }
-
-    renderAll();
-    startTypewriter();
-    setTimeout(animateCounters, 500);
-    window.addEventListener("load", () => {
-      setTimeout(() => {
-        const loader = document.getElementById("loading");
-        loader.style.opacity = "0";
-        loader.style.visibility = "hidden";
-      }, 600);
-    });
   </script>
 </body>
 </html>
