@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prithiksha K S - Portfolio Dashboard</title>
+  <meta name="description" content="Portfolio and personal dashboard of Prithiksha K S, ECE student focused on IoT, Embedded Systems, VLSI, and intelligent hardware." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --ink: #f8fafc;
+      --ink2: #e2e8f0;
+      --surface: rgba(255, 255, 255, 0.78);
+      --surface2: rgba(255, 255, 255, 0.92);
+      --text: #0f172a;
+      --text2: #334155;
+      --text3: #64748b;
+      --gold: #7c3aed;
+      --gold2: #a78bfa;
+      --cyan: #06b6d4;
+      --violet: #6366f1;
+      --glass: rgba(255, 255, 255, 0.68);
+      --glass2: rgba(255, 255, 255, 0.88);
+      --border: rgba(15, 23, 42, 0.09);
+      --border2: rgba(124, 58, 237, 0.24);
+      --glow: 0 20px 60px rgba(124, 58, 237, 0.14);
+      --shadow: 0 18px 46px rgba(15, 23, 42, 0.1);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(6, 182, 212, 0.16), transparent 28%),
+        radial-gradient(circle at 88% 6%, rgba(124, 58, 237, 0.15), transparent 24%),
+        linear-gradient(135deg, #f8fafc, #eef2ff 42%, #f8fafc);
+      color: var(--text);
+      font-family: "Outfit", system-ui, sans-serif;
+      line-height: 1.65;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.06;
+      background-image:
+        linear-gradient(rgba(124, 58, 237, 0.28) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(6, 182, 212, 0.22) 1px, transparent 1px);
+      background-size: 76px 76px;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea, select { font: inherit; }
+    button { cursor: pointer; border: 0; }
+    ::selection { background: rgba(124, 58, 237, 0.18); color: var(--gold); }
+
+    #loading {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: grid;
+      place-items: center;
+      background: var(--ink);
+      transition: opacity 0.55s ease, visibility 0.55s ease;
+    }
+
+    .loading-inner { display: grid; gap: 18px; justify-items: center; }
+    .ld-name {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(2.2rem, 7vw, 4rem);
+      color: var(--gold);
+      letter-spacing: 0.12em;
+    }
+    .ld-bar { width: 190px; height: 2px; overflow: hidden; background: rgba(124, 58, 237, 0.14); border-radius: 20px; }
+    .ld-fill { width: 0; height: 100%; background: linear-gradient(90deg, var(--gold), var(--cyan)); animation: fill 1.1s ease forwards; }
+    @keyframes fill { to { width: 100%; } }
+
+    .page-shell {
+      position: relative;
+      z-index: 1;
+      width: min(1160px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 24px 0 96px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 16px;
+      z-index: 60;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 14px 18px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(22px);
+      box-shadow: var(--shadow);
+    }
+
+    .brand {
+      display: inline-grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--cyan));
+      color: white;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      box-shadow: 0 16px 36px rgba(124, 58, 237, 0.25);
+    }
+
+    .topbar nav { display: flex; align-items: center; gap: 16px; color: var(--text3); font-size: 0.88rem; }
+    .topbar nav a { transition: color 0.25s ease; }
+    .topbar nav a:hover { color: var(--gold); }
+    .top-actions { display: flex; align-items: center; gap: 10px; }
+
+    .btn, .ghost-btn, .icon-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 0 16px;
+      border-radius: 999px;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      white-space: nowrap;
+    }
+
+    .btn {
+      color: white;
+      background: linear-gradient(135deg, var(--gold), var(--cyan));
+      box-shadow: 0 16px 38px rgba(124, 58, 237, 0.22);
+      font-weight: 700;
+    }
+
+    .ghost-btn, .icon-btn {
+      color: var(--text2);
+      background: rgba(255, 255, 255, 0.68);
+      border: 1px solid var(--border);
+    }
+
+    .btn:hover, .ghost-btn:hover, .icon-btn:hover { transform: translateY(-3px); box-shadow: var(--glow); border-color: var(--border2); }
+
+    .sidebar {
+      position: fixed;
+      left: 18px;
+      top: 50%;
+      z-index: 70;
+      width: 74px;
+      transform: translateY(-50%);
+      padding: 12px 10px;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.84);
+      backdrop-filter: blur(24px);
+      box-shadow: var(--shadow);
+      transition: width 0.28s ease, transform 0.28s ease;
+    }
+
+    .sidebar:hover, .sidebar.open { width: 224px; }
+    .side-logo {
+      display: grid;
+      place-items: center;
+      height: 42px;
+      margin-bottom: 8px;
+      border-radius: 16px;
+      color: white;
+      background: linear-gradient(135deg, var(--gold), var(--cyan));
+      font-weight: 800;
+    }
+
+    .sidebar nav { display: grid; gap: 6px; }
+    .sidebar a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 42px;
+      padding: 0 13px;
+      overflow: hidden;
+      border-radius: 16px;
+      color: var(--text3);
+      transition: color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+    }
+    .sidebar a span:last-child { opacity: 0; white-space: nowrap; transform: translateX(-8px); transition: all 0.25s ease; }
+    .sidebar:hover a span:last-child, .sidebar.open a span:last-child { opacity: 1; transform: translateX(0); }
+    .sidebar a.active, .sidebar a:hover { color: var(--gold); background: rgba(124, 58, 237, 0.08); transform: translateX(2px); }
+    .mobile-toggle { display: none; }
+
+    section { scroll-margin-top: 110px; }
+    .hero {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 42px;
+      align-items: center;
+      min-height: calc(100vh - 120px);
+      padding: 54px 40px;
+      margin-top: 24px;
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      overflow: hidden;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.55));
+      backdrop-filter: blur(22px);
+      box-shadow: var(--shadow);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(124, 58, 237, 0.16), transparent 26%),
+        radial-gradient(circle at 78% 24%, rgba(6, 182, 212, 0.16), transparent 22%);
+      animation: floatBg 12s ease-in-out infinite alternate;
+    }
+    @keyframes floatBg { to { transform: translate(24px, -18px); } }
+
+    .hero-copy, .hero-visual { position: relative; z-index: 1; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      color: var(--gold);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 30px; height: 1px; background: var(--gold); }
+
+    h1, h2, h3 { font-family: "Cormorant Garamond", serif; line-height: 1.05; }
+    .hero h1 { font-size: clamp(3.4rem, 8vw, 6.3rem); margin-bottom: 10px; }
+    .gradient-text {
+      background: linear-gradient(135deg, var(--gold), var(--cyan));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .typing { min-height: 44px; margin: 12px 0 18px; color: var(--cyan); font-size: clamp(1.25rem, 3vw, 1.85rem); font-weight: 600; }
+    .cursor { color: var(--gold); animation: blink 0.8s infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+    .hero p { max-width: 620px; color: var(--text2); }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+    .contact-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; color: var(--text3); }
+    .contact-pills a {
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.55);
+      transition: all 0.25s ease;
+    }
+    .contact-pills a:hover { color: var(--gold); border-color: var(--border2); transform: translateY(-2px); }
+
+    .profile-card {
+      position: relative;
+      width: min(100%, 370px);
+      margin: 0 auto;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      border: 1px solid var(--border2);
+      border-radius: 28px 72px 28px 72px;
+      background: linear-gradient(135deg, #ffffff, #f1f5f9);
+      box-shadow: 0 26px 80px rgba(124, 58, 237, 0.16);
+    }
+    .profile-card img { width: 100%; height: 100%; object-fit: cover; }
+    .profile-fallback {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      place-items: center;
+      color: rgba(124, 58, 237, 0.42);
+      font-family: "Cormorant Garamond", serif;
+      font-size: 5rem;
+      font-weight: 700;
+    }
+    .floating-badge {
+      position: absolute;
+      left: 50%;
+      bottom: -18px;
+      transform: translateX(-50%);
+      padding: 10px 22px;
+      border-radius: 999px;
+      color: white;
+      background: linear-gradient(135deg, var(--gold), var(--cyan));
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow: 0 16px 32px rgba(124, 58, 237, 0.24);
+      white-space: nowrap;
+    }
+
+    .section-card {
+      margin-top: 28px;
+      padding: 32px;
+      border: 1px solid var(--border);
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(24px);
+      box-shadow: var(--shadow);
+    }
+    .section-head { margin-bottom: 24px; }
+    .section-head h2 { font-size: clamp(2.1rem, 5vw, 3.4rem); }
+    .rule { width: 56px; height: 2px; margin-top: 14px; background: linear-gradient(90deg, var(--gold), transparent); }
+
+    .grid-2 { display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 28px; align-items: start; }
+    .muted { color: var(--text2); }
+    .stats { display: grid; gap: 12px; }
+    .stat-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.55);
+      transition: all 0.25s ease;
+    }
+    .stat-row:hover { border-color: var(--border2); transform: translateX(4px); box-shadow: var(--glow); }
+    .stat-row strong { min-width: 58px; color: var(--gold); font-family: "Cormorant Garamond", serif; font-size: 2.1rem; line-height: 1; }
+    .stat-row span { display: block; color: var(--text3); font-size: 0.82rem; }
+
+    .metric-grid, .project-grid, .goal-grid, .activity-grid, .course-grid, .extra-grid { display: grid; gap: 18px; }
+    .metric-grid { grid-template-columns: repeat(3, 1fr); }
+    .project-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .goal-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+    .course-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .extra-grid { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+    .activity-grid { grid-template-columns: repeat(7, minmax(0, 1fr)); align-items: end; }
+
+    .glass-card {
+      position: relative;
+      overflow: hidden;
+      padding: 22px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.52));
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .glass-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at 78% 18%, rgba(124, 58, 237, 0.09), transparent 44%);
+    }
+    .glass-card:hover { transform: translateY(-5px); border-color: var(--border2); box-shadow: var(--glow); }
+    .glass-card > * { position: relative; z-index: 1; }
+
+    .metric-card span { color: var(--text3); font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; }
+    .metric-card strong {
+      display: block;
+      margin: 8px 0;
+      color: var(--gold);
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(2.6rem, 6vw, 4.3rem);
+      line-height: 1;
+    }
+
+    .timeline { position: relative; display: grid; gap: 18px; padding-left: 22px; }
+    .timeline::before { content: ""; position: absolute; left: 3px; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(var(--gold), rgba(6, 182, 212, 0.2)); }
+    .tl-item { position: relative; }
+    .tl-item::before {
+      content: "";
+      position: absolute;
+      left: -25px;
+      top: 26px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 6px rgba(124, 58, 237, 0.12);
+    }
+    .tl-item h3, .project-card h3, .goal-card h3 { margin-bottom: 8px; font-size: 1.35rem; }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .tag { padding: 7px 11px; border: 1px solid rgba(6, 182, 212, 0.18); border-radius: 999px; color: var(--cyan); background: rgba(6, 182, 212, 0.07); font-size: 0.78rem; font-weight: 600; }
+    .badge { display: inline-flex; margin-bottom: 10px; padding: 6px 10px; border-radius: 999px; border: 1px solid var(--border2); color: var(--gold); background: rgba(124, 58, 237, 0.08); font-size: 0.78rem; font-weight: 700; }
+
+    .learned { margin-top: 16px; padding: 13px; border-left: 3px solid var(--gold); border-radius: 0 14px 14px 0; background: rgba(124, 58, 237, 0.06); color: var(--text2); font-size: 0.9rem; }
+    .learned strong { display: block; color: var(--gold); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; }
+
+    .planner { position: relative; display: grid; gap: 16px; }
+    .planner::before { content: ""; position: absolute; left: 9px; top: 14px; bottom: 14px; width: 2px; background: linear-gradient(var(--gold), var(--cyan)); opacity: 0.38; }
+    .plan-row { position: relative; display: grid; grid-template-columns: 20px 1fr; gap: 18px; }
+    .plan-node {
+      position: relative;
+      z-index: 1;
+      width: 20px;
+      height: 20px;
+      margin-top: 24px;
+      border-radius: 50%;
+      border: 4px solid #f8fafc;
+      background: var(--cyan);
+      box-shadow: 0 0 0 6px rgba(6, 182, 212, 0.12);
+    }
+    .plan-row.college .plan-node, .plan-row.current .plan-node { background: var(--gold); box-shadow: 0 0 0 7px rgba(124, 58, 237, 0.16); }
+    .plan-row.current .glass-card { border-color: rgba(124, 58, 237, 0.45); }
+    .plan-time { display: block; color: var(--gold); font-weight: 800; margin-bottom: 4px; }
+    .kind { display: inline-flex; margin-top: 10px; padding: 5px 9px; border-radius: 999px; background: rgba(6, 182, 212, 0.08); color: var(--cyan); font-size: 0.72rem; text-transform: capitalize; }
+
+    .goal-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+      padding: 7px 10px;
+      border-radius: 999px;
+      color: var(--cyan);
+      background: rgba(6, 182, 212, 0.08);
+      border: 1px solid rgba(6, 182, 212, 0.18);
+      font-size: 0.78rem;
+      text-transform: capitalize;
+    }
+    .status.done { color: #16a34a; background: rgba(34, 197, 94, 0.08); border-color: rgba(34, 197, 94, 0.18); }
+    .progress { height: 12px; margin: 22px 0 10px; border-radius: 999px; overflow: hidden; background: rgba(15, 23, 42, 0.07); }
+    .progress span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--gold), var(--cyan)); transition: width 0.7s ease; }
+    .goal-meta { display: flex; justify-content: space-between; color: var(--text3); }
+    .admin-tools { display: none; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+    body.admin .admin-tools { display: flex; }
+
+    .activity-card {
+      position: relative;
+      min-height: 220px;
+      display: grid;
+      align-content: end;
+      gap: 8px;
+      overflow: hidden;
+    }
+    .activity-bar {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 0;
+      background: linear-gradient(180deg, rgba(6, 182, 212, 0.42), rgba(124, 58, 237, 0.16));
+      transition: height 0.5s ease;
+    }
+    .activity-card > *:not(.activity-bar) { position: relative; z-index: 1; }
+    .activity-card strong { font-size: 1.1rem; }
+    .activity-card span { color: var(--gold); font-weight: 800; }
+
+    .skill-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .contact-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 24px; }
+    .contact-list { display: grid; gap: 12px; }
+    .contact-row { display: flex; gap: 12px; align-items: center; color: var(--text2); }
+    .contact-ico { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: rgba(124, 58, 237, 0.08); color: var(--gold); }
+    .form { display: grid; gap: 12px; }
+    .field {
+      width: 100%;
+      padding: 13px 15px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      outline: none;
+      background: rgba(255, 255, 255, 0.68);
+      color: var(--text);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .field:focus { border-color: var(--border2); box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.08); }
+    textarea.field { min-height: 120px; resize: vertical; }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding: 32px 8px 0;
+      color: var(--text3);
+      font-size: 0.9rem;
+    }
+    footer strong { color: var(--gold); }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      background: rgba(248, 250, 252, 0.78);
+      backdrop-filter: blur(16px);
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal {
+      width: min(100%, 520px);
+      max-height: 88vh;
+      overflow: auto;
+      padding: 28px;
+      border: 1px solid var(--border2);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow: 0 30px 80px rgba(15, 23, 42, 0.18);
+    }
+    .modal-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+    .modal h3 { font-size: 1.7rem; }
+    .close { width: 36px; height: 36px; border-radius: 12px; color: var(--text2); background: rgba(15, 23, 42, 0.06); }
+    .modal-form { display: grid; gap: 12px; }
+    .err { display: none; color: #dc2626; font-size: 0.88rem; }
+
+    .toast {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 1200;
+      transform: translateX(140%);
+      padding: 13px 18px;
+      border-radius: 999px;
+      color: white;
+      background: linear-gradient(135deg, #1e293b, #334155);
+      box-shadow: var(--shadow);
+      transition: transform 0.35s ease;
+    }
+    .toast.show { transform: translateX(0); }
+
+    .admin-bar {
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      z-index: 900;
+      display: none;
+      align-items: center;
+      gap: 10px;
+      transform: translateX(-50%);
+      padding: 10px 12px;
+      border: 1px solid var(--border2);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow);
+    }
+    body.admin .admin-bar { display: flex; }
+    .admin-pill { padding: 8px 12px; border-radius: 999px; background: rgba(124, 58, 237, 0.09); color: var(--gold); font-size: 0.76rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+    .edit-float { display: none; }
+    body.admin .edit-float { display: inline-flex; }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 980px) {
+      .topbar nav { display: none; }
+      .hero, .grid-2, .contact-grid { grid-template-columns: 1fr; }
+      .hero-visual { order: -1; }
+      .metric-grid, .activity-grid { grid-template-columns: repeat(2, 1fr); }
+      .skill-columns { grid-template-columns: 1fr; }
+      .sidebar {
+        left: 50%;
+        top: auto;
+        bottom: 14px;
+        width: min(calc(100% - 22px), 620px);
+        transform: translateX(-50%);
+        padding: 10px;
+      }
+      .sidebar:hover, .sidebar.open { width: min(calc(100% - 22px), 620px); }
+      .side-logo { display: none; }
+      .sidebar nav { display: flex; overflow-x: auto; scrollbar-width: none; }
+      .sidebar nav::-webkit-scrollbar { display: none; }
+      .sidebar a { flex: 0 0 auto; justify-content: center; }
+      .sidebar a span:last-child { display: none; }
+      .mobile-toggle {
+        display: grid;
+        place-items: center;
+        position: fixed;
+        right: 18px;
+        bottom: 82px;
+        z-index: 80;
+        width: 46px;
+        height: 46px;
+        border-radius: 16px;
+        color: var(--text);
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: var(--shadow);
+      }
+      .admin-bar { bottom: 86px; }
+    }
+
+    @media (max-width: 640px) {
+      .page-shell { width: min(100% - 1rem, 100%); padding-top: 12px; }
+      .topbar { border-radius: 22px; }
+      .hero, .section-card { padding: 24px 18px; border-radius: 24px; }
+      .profile-card { width: min(100%, 285px); }
+      .metric-grid, .activity-grid { grid-template-columns: 1fr; }
+      .activity-card { min-height: 150px; }
+      .hero-actions, .top-actions { gap: 8px; }
+      .btn, .ghost-btn, .icon-btn { padding: 0 12px; }
+      .admin-bar { width: calc(100% - 20px); justify-content: center; flex-wrap: wrap; border-radius: 24px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="loading">
+    <div class="loading-inner">
+      <div class="ld-name">Prithiksha K S</div>
+      <div class="ld-bar"><div class="ld-fill"></div></div>
+    </div>
+  </div>
+
+  <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation">Menu</button>
+
+  <aside class="sidebar" id="sidebar" aria-label="Sidebar navigation">
+    <a class="side-logo" href="#home">PKS</a>
+    <nav id="sideNav"></nav>
+  </aside>
+
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="#home">PKS</a>
+      <nav>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#planner">Planner</a>
+        <a href="#goals">Goals</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="top-actions">
+        <button class="ghost-btn" id="adminTopBtn">Admin</button>
+      </div>
+    </header>
+
+    <section class="hero reveal" id="home">
+      <div class="hero-copy">
+        <div class="eyebrow">ECE Student - PSG iTech - Batch of 2028</div>
+        <h1><span class="gradient-text" id="heroName">Prithiksha K S</span></h1>
+        <div class="typing"><span id="typeText"></span><span class="cursor">_</span></div>
+        <p id="heroBio">Innovative and enthusiastic Electronics and Communication Engineering student passionate about IoT, Embedded Systems, and VLSI. Dedicated to hackathons, ideathons, and practical technology that connects hardware with intelligent behavior.</p>
+        <div class="hero-actions">
+          <a class="btn" href="#projects">View My Work</a>
+          <a class="ghost-btn" href="resume.pdf" target="_blank">View Resume</a>
+          <button class="ghost-btn edit-float" onclick="openHeroEditor()">Edit Hero</button>
+        </div>
+        <div class="contact-pills">
+          <a href="mailto:prithikshaks@gmail.com">prithikshaks@gmail.com</a>
+          <a href="tel:9994777264">+91 99947 77264</a>
+          <a href="https://www.linkedin.com/in/prithikshaks-3139sac" target="_blank">LinkedIn</a>
+          <a href="https://github.com/prithi-workspace09" target="_blank">GitHub</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="profile-card">
+          <img src="profile.jpg" alt="Prithiksha K S" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'profile-fallback',textContent:'PKS'}))" />
+        </div>
+        <div class="floating-badge">Open to Internships</div>
+      </div>
+    </section>
+
+    <section class="section-card reveal" id="dashboard">
+      <div class="section-head">
+        <div class="eyebrow">Live Overview</div>
+        <h2>Personal Dashboard</h2>
+        <div class="rule"></div>
+      </div>
+      <div class="metric-grid">
+        <article class="glass-card metric-card"><span>Total Projects</span><strong data-count="6">0</strong><p>IoT, AI, embedded systems, sustainability, and secure prototypes.</p></article>
+        <article class="glass-card metric-card"><span>Skills Count</span><strong data-count="16">0</strong><p>Technical and soft skills actively growing toward hardware design roles.</p></article>
+        <article class="glass-card metric-card"><span>Activity Status</span><strong data-count="71">0</strong><p>Weekly balance across study, project work, college, and personal reset.</p></article>
+      </div>
+    </section>
+
+    <section class="section-card reveal" id="about">
+      <div class="section-head">
+        <div class="eyebrow">Who I Am</div>
+        <h2>About Me</h2>
+        <div class="rule"></div>
+      </div>
+      <div class="grid-2">
+        <div>
+          <p class="muted" id="aboutText">A curious builder with a strong inclination toward creating systems that connect hardware with intelligent behavior. Focused on IoT, embedded systems, and hardware design, with a mindset that blends technical depth with real-world impact. I thrive in hands-on environments where ideas evolve into working solutions, from hackathons to self-driven projects.</p>
+          <div class="tag-row" id="aboutTags"></div>
+        </div>
+        <div class="stats">
+          <div class="stat-row"><strong>9.19</strong><div>Current CGPA<span>Till Semester 3</span></div></div>
+          <div class="stat-row"><strong>4+</strong><div>Hackathon Finals<span>National and college level</span></div></div>
+          <div class="stat-row"><strong>6+</strong><div>Projects Built<span>IoT, AI, embedded systems</span></div></div>
+          <div class="stat-row"><strong>3</strong><div>Leadership Roles<span>FESTO, Dance Club, Multimedia</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-card reveal" id="education">
+      <div class="section-head"><div class="eyebrow">Academic Journey</div><h2>Education</h2><div class="rule"></div></div>
+      <div class="timeline" id="educationList"></div>
+    </section>
+
+    <section class="section-card reveal" id="projects">
+      <div class="section-head"><div class="eyebrow">What I Have Built</div><h2>Projects</h2><div class="rule"></div></div>
+      <div class="project-grid" id="projectsGrid"></div>
+    </section>
+
+    <section class="section-card reveal" id="experience">
+      <div class="section-head"><div class="eyebrow">Work History</div><h2>Experience</h2><div class="rule"></div></div>
+      <div class="timeline" id="experienceList"></div>
+    </section>
+
+    <section class="section-card reveal" id="planner">
+      <div class="section-head"><div class="eyebrow">Smart Calendar</div><h2>Daily Planner</h2><div class="rule"></div></div>
+      <div class="planner" id="plannerList"></div>
+      <div class="admin-tools"><button class="ghost-btn" onclick="addPlannerBlock()">Add Planner Block</button></div>
+    </section>
+
+    <section class="section-card reveal" id="goals">
+      <div class="section-head"><div class="eyebrow">Editable Focus Cards</div><h2>Goals</h2><div class="rule"></div></div>
+      <div class="goal-grid" id="goalsGrid"></div>
+      <div class="admin-tools"><button class="ghost-btn" onclick="addGoal()">Add Goal</button></div>
+    </section>
+
+    <section class="section-card reveal" id="progress">
+      <div class="section-head"><div class="eyebrow">Weekly Rhythm</div><h2>Activity / Progress</h2><div class="rule"></div></div>
+      <div class="activity-grid" id="activityGrid"></div>
+    </section>
+
+    <section class="section-card reveal" id="skills">
+      <div class="section-head"><div class="eyebrow">My Toolkit</div><h2>Skills</h2><div class="rule"></div></div>
+      <div class="skill-columns">
+        <div class="glass-card"><h3>Technical Skills</h3><div class="tag-row" id="techSkills"></div></div>
+        <div class="glass-card"><h3>Soft Skills</h3><div class="tag-row" id="softSkills"></div></div>
+      </div>
+    </section>
+
+    <section class="section-card reveal" id="achievements">
+      <div class="section-head"><div class="eyebrow">Proof of Work</div><h2>Hackathons & Courses</h2><div class="rule"></div></div>
+      <div class="course-grid" id="achievementsGrid"></div>
+    </section>
+
+    <section class="section-card reveal" id="contact">
+      <div class="section-head"><div class="eyebrow">Let Us Connect</div><h2>Get In Touch</h2><div class="rule"></div></div>
+      <div class="contact-grid">
+        <div class="contact-list">
+          <a class="glass-card contact-row" href="mailto:prithikshaks@gmail.com"><span class="contact-ico">@</span><div><strong>Email</strong><p class="muted">prithikshaks@gmail.com</p></div></a>
+          <a class="glass-card contact-row" href="tel:9994777264"><span class="contact-ico">Ph</span><div><strong>Phone</strong><p class="muted">+91 99947 77264</p></div></a>
+          <a class="glass-card contact-row" href="https://www.linkedin.com/in/prithikshaks-3139sac" target="_blank"><span class="contact-ico">In</span><div><strong>LinkedIn</strong><p class="muted">prithikshaks-3139sac</p></div></a>
+          <div class="glass-card contact-row"><span class="contact-ico">Lo</span><div><strong>Location</strong><p class="muted">Salem, Tamil Nadu, India</p></div></div>
+        </div>
+        <div class="glass-card">
+          <h3>Send a Message</h3>
+          <div class="form">
+            <input class="field" id="msgName" placeholder="Your name" />
+            <input class="field" id="msgEmail" type="email" placeholder="Your email" />
+            <input class="field" id="msgSubject" placeholder="Subject" />
+            <textarea class="field" id="msgBody" placeholder="Your message"></textarea>
+            <button class="btn" onclick="sendMessage(this)">Send Message</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>Designed and built by <strong>Prithiksha K S</strong> - 2026</p>
+      <a href="#" onclick="openLogin();return false;">Admin / Edit</a>
+    </footer>
+  </div>
+
+  <div class="admin-bar">
+    <span class="admin-pill">Edit Mode</span>
+    <button class="btn" onclick="saveData()">Save Changes</button>
+    <button class="ghost-btn" onclick="logoutAdmin()">Sign Out</button>
+  </div>
+
+  <div class="modal-backdrop" id="loginModal">
+    <div class="modal">
+      <div class="modal-head"><h3>Admin Access</h3><button class="close" onclick="closeModal('loginModal')">x</button></div>
+      <div class="modal-form">
+        <input class="field" id="loginEmail" type="email" value="prithikshaks@gmail.com" placeholder="Email" />
+        <input class="field" id="loginPass" type="password" placeholder="Password" />
+        <p class="err" id="loginErr">Login failed. Check Firebase Email/Password settings and credentials.</p>
+        <button class="btn" onclick="loginAdmin()">Unlock Edit Mode</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="editModal">
+    <div class="modal">
+      <div class="modal-head"><h3 id="editTitle">Edit</h3><button class="close" onclick="closeModal('editModal')">x</button></div>
+      <div id="editBody"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">Saved</div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getFirestore, doc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBsej9SceOJubAw-8zL4dFzKYR6hUtaMvE",
+      authDomain: "prithiksha-portfolio.firebaseapp.com",
+      projectId: "prithiksha-portfolio",
+      storageBucket: "prithiksha-portfolio.firebasestorage.app",
+      messagingSenderId: "511906483292",
+      appId: "1:511906483292:web:6a690456aff64b72dfaa99",
+      measurementId: "G-GTZ0HPH19B"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const ADMIN_EMAIL = "prithikshaks@gmail.com";
+
+    const defaultData = {
+      hero: {
+        name: "Prithiksha K S",
+        bio: "Innovative and enthusiastic Electronics and Communication Engineering student passionate about IoT, Embedded Systems, and VLSI. Dedicated to hackathons, ideathons, and practical technology that connects hardware with intelligent behavior.",
+        taglines: ["ECE Engineer", "IoT & Embedded Systems Enthusiast", "VLSI Aspirant", "Hackathon Finalist", "Problem Solver"]
+      },
+      aboutTags: ["IoT", "Embedded Systems", "VLSI", "AI", "Hardware Design", "Hackathons"],
+      education: [
+        { badge: "B.E. ECE", title: "Bachelor of Engineering - Electronics and Communication Engineering", org: "PSG Institute of Technology and Applied Research", date: "2024 - 2028", desc: "Current CGPA: 9.19 till Semester 3. Focused on IoT, embedded systems, digital electronics, and VLSI." },
+        { badge: "Grade 12", title: "Higher Secondary Certificate", org: "SSM Lakshmi Ammal Matric Higher Secondary School", date: "2022 - 2024", desc: "Scored 95.5 percent in science stream with Biology." },
+        { badge: "Grade 10", title: "Secondary School Certificate", org: "SSM Lakshmi Ammal Matric Higher Secondary School", date: "2021 - 2022", desc: "Scored 97 percent with distinction in Mathematics." }
+      ],
+      experience: [
+        { badge: "Open", title: "Open to VLSI and Hardware Internships", org: "Internship Search", date: "2026", desc: "Looking for opportunities to apply embedded systems, digital design, IoT, and hardware design skills in practical engineering environments." }
+      ],
+      projects: [
+        { icon: "AI", title: "Bias Mirror - Ethical AI for Social Good", desc: "AI system concept to detect and reduce bias in recruitment using ML models and fairness frameworks.", tags: ["Python", "Machine Learning", "FairLearn", "AI Ethics"], learned: "Fairness-aware ML, bias detection in NLP pipelines, and responsible AI design." },
+        { icon: "IoT", title: "Smart Solar Water Heating & Alert System", desc: "IoT-based system to optimize solar water heating with automated temperature control and real-time Blynk alerts.", tags: ["IoT", "Arduino", "Blynk", "Sensors"], learned: "Sensor integration, real-time monitoring, and solar energy system design." },
+        { icon: "RX", title: "Radiolink-X - AI Radiology Assistant", desc: "AI concept for early tumor detection using non-imaging diagnostic techniques and machine learning.", tags: ["AI", "Healthcare", "Python"], learned: "Medical AI application design and ethical AI thinking in healthcare." },
+        { icon: "BIO", title: "Fingerprint Voting System", desc: "Biometric voting prototype for secure and transparent elections using fingerprint authentication.", tags: ["Biometrics", "Embedded Systems", "Security"], learned: "Authentication pipelines and secure hardware-software integration." },
+        { icon: "EV", title: "Driving with Wind - EV Innovations", desc: "Green energy model that harnesses vehicle wind flow to generate auxiliary power for EV efficiency.", tags: ["EV", "Green Energy", "Innovation"], learned: "Aerodynamic energy harvesting and sustainable engineering approaches." },
+        { icon: "H2O", title: "Water Level Management System", desc: "Smart IoT solution to monitor and control water levels automatically, preventing overflow and conserving water.", tags: ["IoT", "Arduino", "Automation"], learned: "Sensor calibration, control loops, and automated decision logic." }
+      ],
+      planner: [
+        { time: "6:15 AM", activity: "Wake up, freshen up, and light stretching", kind: "routine" },
+        { time: "6:45 AM", activity: "Breakfast, review priorities, and prepare for college", kind: "routine" },
+        { time: "8:30 AM - 4:45 PM", activity: "College block - classes, labs, notes, and campus tasks", kind: "college" },
+        { time: "5:15 PM", activity: "Rest, snack, and reset after travel", kind: "break" },
+        { time: "6:00 PM", activity: "Focused study session with revision or assignments", kind: "study" },
+        { time: "7:30 PM", activity: "Skill building, project work, or portfolio updates", kind: "project" },
+        { time: "9:00 PM", activity: "Dinner and personal time", kind: "personal" },
+        { time: "10:00 PM", activity: "Light review, plan tomorrow, and wind down", kind: "routine" }
+      ],
+      goals: [
+        { title: "Build stronger VLSI fundamentals", progress: 68, status: "ongoing" },
+        { title: "Refine internship-ready project portfolio", progress: 82, status: "ongoing" },
+        { title: "Maintain weekly coding and embedded practice", progress: 74, status: "ongoing" }
+      ],
+      activity: [
+        { day: "Mon", focus: 78, label: "Study + lab prep" },
+        { day: "Tue", focus: 64, label: "Assignments" },
+        { day: "Wed", focus: 86, label: "Project work" },
+        { day: "Thu", focus: 70, label: "Revision" },
+        { day: "Fri", focus: 92, label: "Build sprint" },
+        { day: "Sat", focus: 58, label: "Practice" },
+        { day: "Sun", focus: 46, label: "Reset" }
+      ],
+      skills: {
+        technical: ["Python", "C Programming", "C++", "Embedded C", "IoT", "VLSI", "Arduino", "Blynk", "MS Excel", "MS PowerPoint", "LaTeX", "Canva"],
+        soft: ["Team Leadership", "Communication", "Presentation", "Public Speaking", "Management", "Problem Solving"]
+      },
+      achievements: [
+        { title: "Itech Ideathon 2025", issuer: "PSG iTech", result: "Finalist" },
+        { title: "QUALCOMM Edge AI Hackathon 2025", issuer: "Qualcomm", result: "Finalist" },
+        { title: "Code'O Clock - 24-hour Hackathon", issuer: "Inter-college", result: "Finalist" },
+        { title: "Digital Circuits", issuer: "NPTEL", result: "Course" },
+        { title: "VLSI Design", issuer: "SmartEd Learning", result: "Course" },
+        { title: "Verilog", issuer: "Udemy", result: "Course" }
+      ]
+    };
+
+    let data = structuredClone(defaultData);
+    let isAdmin = false;
+
+    const navItems = [
+      ["home", "Home", "H"],
+      ["about", "About", "A"],
+      ["projects", "Projects", "P"],
+      ["experience", "Experience", "E"],
+      ["contact", "Contact", "C"],
+      ["dashboard", "Dashboard", "D"],
+      ["planner", "Daily Planner", "Pl"],
+      ["goals", "Goals", "G"],
+      ["progress", "Progress", "Pr"]
+    ];
+
+    function escapeHtml(value) {
+      return String(value ?? "").replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" }[char]));
+    }
+
+    function mergeData(saved = {}) {
+      return {
+        ...structuredClone(defaultData),
+        ...saved,
+        hero: { ...defaultData.hero, ...(saved.hero || {}) },
+        skills: { ...defaultData.skills, ...(saved.skills || {}) },
+        aboutTags: Array.isArray(saved.aboutTags) ? saved.aboutTags : defaultData.aboutTags,
+        education: Array.isArray(saved.education) ? saved.education : defaultData.education,
+        experience: Array.isArray(saved.experience) ? saved.experience : defaultData.experience,
+        projects: Array.isArray(saved.projects) ? saved.projects : defaultData.projects,
+        planner: Array.isArray(saved.planner) ? saved.planner : defaultData.planner,
+        goals: Array.isArray(saved.goals) ? saved.goals : defaultData.goals,
+        activity: Array.isArray(saved.activity) ? saved.activity : defaultData.activity,
+        achievements: Array.isArray(saved.achievements) ? saved.achievements : defaultData.achievements
+      };
+    }
+
+    function toast(message) {
+      const el = document.getElementById("toast");
+      el.textContent = message;
+      el.classList.add("show");
+      setTimeout(() => el.classList.remove("show"), 2800);
+    }
+
+    function renderNav() {
+      document.getElementById("sideNav").innerHTML = navItems.map(([id, label, icon]) => `<a href="#${id}" data-nav="${id}"><span>${icon}</span><span>${label}</span></a>`).join("");
+    }
+
+    function renderTags(id, tags) {
+      document.getElementById(id).innerHTML = tags.map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join("");
+    }
+
+    function renderTimeline(id, items) {
+      document.getElementById(id).innerHTML = items.map(item => `
+        <article class="glass-card tl-item">
+          <span class="badge">${escapeHtml(item.badge)}</span>
+          <h3>${escapeHtml(item.title)}</h3>
+          <p class="muted"><strong>${escapeHtml(item.org)}</strong> - ${escapeHtml(item.date)}</p>
+          <p class="muted">${escapeHtml(item.desc)}</p>
+        </article>
+      `).join("");
+    }
+
+    function renderProjects() {
+      document.getElementById("projectsGrid").innerHTML = data.projects.map(project => `
+        <article class="glass-card project-card">
+          <span class="badge">${escapeHtml(project.icon)}</span>
+          <h3>${escapeHtml(project.title)}</h3>
+          <p class="muted">${escapeHtml(project.desc)}</p>
+          <div class="tag-row">${project.tags.map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join("")}</div>
+          <div class="learned"><strong>What I Learned</strong>${escapeHtml(project.learned)}</div>
+        </article>
+      `).join("");
+    }
+
+    function currentPlannerIndex() {
+      const now = new Date();
+      const day = now.getDay();
+      const minutes = now.getHours() * 60 + now.getMinutes();
+      if (day >= 1 && day <= 5 && minutes >= 510 && minutes <= 1005) return data.planner.findIndex(item => item.kind === "college");
+      if (minutes < 510) return 1;
+      if (minutes < 1080) return 3;
+      if (minutes < 1260) return 4;
+      return data.planner.length - 1;
+    }
+
+    function renderPlanner() {
+      const current = currentPlannerIndex();
+      document.getElementById("plannerList").innerHTML = data.planner.map((item, index) => `
+        <article class="plan-row ${escapeHtml(item.kind)} ${index === current ? "current" : ""}">
+          <div class="plan-node"></div>
+          <div class="glass-card">
+            <span class="plan-time">${escapeHtml(item.time)}</span>
+            <p>${escapeHtml(item.activity)}</p>
+            <span class="kind">${escapeHtml(item.kind)}</span>
+            <div class="admin-tools">
+              <button class="ghost-btn" onclick="editPlanner(${index})">Edit</button>
+              <button class="ghost-btn" onclick="deletePlanner(${index})">Delete</button>
+            </div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function renderGoals() {
+      document.getElementById("goalsGrid").innerHTML = data.goals.map((goal, index) => `
+        <article class="glass-card goal-card">
+          <div class="goal-top">
+            <h3>${escapeHtml(goal.title)}</h3>
+            <span class="status ${goal.status === "completed" ? "done" : ""}">${escapeHtml(goal.status)}</span>
+          </div>
+          <div class="progress"><span style="width:${Number(goal.progress) || 0}%"></span></div>
+          <div class="goal-meta"><strong>${Number(goal.progress) || 0}%</strong><span>${goal.status === "completed" ? "Locked in" : "In progress"}</span></div>
+          <div class="admin-tools">
+            <button class="ghost-btn" onclick="editGoal(${index})">Edit</button>
+            <button class="ghost-btn" onclick="deleteGoal(${index})">Delete</button>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function renderActivity() {
+      document.getElementById("activityGrid").innerHTML = data.activity.map((item, index) => `
+        <article class="glass-card activity-card">
+          <div class="activity-bar" style="height:${Math.max(Number(item.focus) || 0, 12)}%"></div>
+          <strong>${escapeHtml(item.day)}</strong>
+          <span>${Number(item.focus) || 0}%</span>
+          <p>${escapeHtml(item.label)}</p>
+          <div class="admin-tools"><button class="ghost-btn" onclick="editActivity(${index})">Edit</button></div>
+        </article>
+      `).join("");
+    }
+
+    function renderAchievements() {
+      document.getElementById("achievementsGrid").innerHTML = data.achievements.map(item => `
+        <article class="glass-card">
+          <span class="badge">${escapeHtml(item.result)}</span>
+          <h3>${escapeHtml(item.title)}</h3>
+          <p class="muted">${escapeHtml(item.issuer)}</p>
+        </article>
+      `).join("");
+    }
+
+    function renderAll() {
+      document.getElementById("heroName").textContent = data.hero.name;
+      document.getElementById("heroBio").textContent = data.hero.bio;
+      renderTags("aboutTags", data.aboutTags);
+      renderTimeline("educationList", data.education);
+      renderTimeline("experienceList", data.experience);
+      renderProjects();
+      renderPlanner();
+      renderGoals();
+      renderActivity();
+      renderTags("techSkills", data.skills.technical);
+      renderTags("softSkills", data.skills.soft);
+      renderAchievements();
+      renderNav();
+      setupReveal();
+      setupSpy();
+    }
+
+    function openModal(id) { document.getElementById(id).classList.add("open"); }
+    window.closeModal = id => document.getElementById(id).classList.remove("open");
+    window.openLogin = () => openModal("loginModal");
+
+    window.loginAdmin = async function () {
+      const email = document.getElementById("loginEmail").value.trim();
+      const password = document.getElementById("loginPass").value;
+      const err = document.getElementById("loginErr");
+      err.style.display = "none";
+      try {
+        const result = await signInWithEmailAndPassword(auth, email, password);
+        if (result.user.email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) throw new Error("Not admin");
+        closeModal("loginModal");
+        toast("Admin mode unlocked");
+      } catch (error) {
+        err.textContent = error.message || "Login failed";
+        err.style.display = "block";
+      }
+    };
+
+    window.logoutAdmin = async function () {
+      await signOut(auth);
+      toast("Signed out");
+    };
+
+    window.saveData = async function () {
+      if (!isAdmin) return toast("Login as admin first");
+      await setDoc(doc(db, "portfolio", "main"), data);
+      toast("Changes saved to Firebase");
+    };
+
+    function openEditor(title, html) {
+      document.getElementById("editTitle").textContent = title;
+      document.getElementById("editBody").innerHTML = html;
+      openModal("editModal");
+    }
+
+    window.openHeroEditor = function () {
+      openEditor("Edit Hero", `
+        <div class="modal-form">
+          <input class="field" id="editHeroName" value="${escapeHtml(data.hero.name)}" />
+          <textarea class="field" id="editHeroBio">${escapeHtml(data.hero.bio)}</textarea>
+          <button class="btn" onclick="applyHeroEditor()">Apply</button>
+        </div>
+      `);
+    };
+
+    window.applyHeroEditor = function () {
+      data.hero.name = document.getElementById("editHeroName").value;
+      data.hero.bio = document.getElementById("editHeroBio").value;
+      closeModal("editModal");
+      renderAll();
+      toast("Hero updated");
+    };
+
+    window.editGoal = function (index) {
+      const goal = data.goals[index];
+      openEditor("Edit Goal", `
+        <div class="modal-form">
+          <input class="field" id="goalTitle" value="${escapeHtml(goal.title)}" />
+          <input class="field" id="goalProgress" type="number" min="0" max="100" value="${Number(goal.progress) || 0}" />
+          <select class="field" id="goalStatus"><option value="ongoing">ongoing</option><option value="completed">completed</option></select>
+          <button class="btn" onclick="applyGoal(${index})">Apply</button>
+        </div>
+      `);
+      document.getElementById("goalStatus").value = goal.status;
+    };
+
+    window.applyGoal = function (index) {
+      data.goals[index] = {
+        title: document.getElementById("goalTitle").value,
+        progress: Math.min(100, Math.max(0, Number(document.getElementById("goalProgress").value) || 0)),
+        status: document.getElementById("goalStatus").value
+      };
+      closeModal("editModal");
+      renderGoals();
+      toast("Goal updated");
+    };
+
+    window.addGoal = function () {
+      data.goals.push({ title: "New personal goal", progress: 20, status: "ongoing" });
+      renderGoals();
+    };
+
+    window.deleteGoal = function (index) {
+      if (!confirm("Delete this goal?")) return;
+      data.goals.splice(index, 1);
+      renderGoals();
+    };
+
+    window.editPlanner = function (index) {
+      const item = data.planner[index];
+      openEditor("Edit Planner Block", `
+        <div class="modal-form">
+          <input class="field" id="planTime" value="${escapeHtml(item.time)}" />
+          <textarea class="field" id="planActivity">${escapeHtml(item.activity)}</textarea>
+          <select class="field" id="planKind">
+            <option value="routine">routine</option><option value="college">college</option><option value="study">study</option>
+            <option value="break">break</option><option value="project">project</option><option value="personal">personal</option>
+          </select>
+          <button class="btn" onclick="applyPlanner(${index})">Apply</button>
+        </div>
+      `);
+      document.getElementById("planKind").value = item.kind;
+    };
+
+    window.applyPlanner = function (index) {
+      data.planner[index] = {
+        time: document.getElementById("planTime").value,
+        activity: document.getElementById("planActivity").value,
+        kind: document.getElementById("planKind").value
+      };
+      closeModal("editModal");
+      renderPlanner();
+      toast("Planner updated");
+    };
+
+    window.addPlannerBlock = function () {
+      data.planner.push({ time: "New time", activity: "New activity", kind: "routine" });
+      renderPlanner();
+    };
+
+    window.deletePlanner = function (index) {
+      if (!confirm("Delete this planner block?")) return;
+      data.planner.splice(index, 1);
+      renderPlanner();
+    };
+
+    window.editActivity = function (index) {
+      const item = data.activity[index];
+      openEditor("Edit Activity", `
+        <div class="modal-form">
+          <input class="field" id="activityFocus" type="number" min="0" max="100" value="${Number(item.focus) || 0}" />
+          <input class="field" id="activityLabel" value="${escapeHtml(item.label)}" />
+          <button class="btn" onclick="applyActivity(${index})">Apply</button>
+        </div>
+      `);
+    };
+
+    window.applyActivity = function (index) {
+      data.activity[index].focus = Math.min(100, Math.max(0, Number(document.getElementById("activityFocus").value) || 0));
+      data.activity[index].label = document.getElementById("activityLabel").value;
+      closeModal("editModal");
+      renderActivity();
+      toast("Activity updated");
+    };
+
+    window.sendMessage = function (button) {
+      button.textContent = "Message Sent";
+      ["msgName", "msgEmail", "msgSubject", "msgBody"].forEach(id => document.getElementById(id).value = "");
+      setTimeout(() => button.textContent = "Send Message", 2600);
+    };
+
+    function setupReveal() {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add("in"); });
+      }, { threshold: 0.12 });
+      document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+    }
+
+    function setupSpy() {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          document.querySelectorAll("[data-nav]").forEach(link => link.classList.toggle("active", link.dataset.nav === entry.target.id));
+        });
+      }, { rootMargin: "-35% 0px -45% 0px", threshold: 0.12 });
+      navItems.forEach(([id]) => {
+        const el = document.getElementById(id);
+        if (el) observer.observe(el);
+      });
+    }
+
+    function startTypewriter() {
+      let phrase = 0;
+      let char = 0;
+      let deleting = false;
+      const target = document.getElementById("typeText");
+      function tick() {
+        const text = data.hero.taglines[phrase] || "";
+        target.textContent = deleting ? text.slice(0, char--) : text.slice(0, char++);
+        if (!deleting && char > text.length) { deleting = true; setTimeout(tick, 1500); return; }
+        if (deleting && char < 0) { deleting = false; phrase = (phrase + 1) % data.hero.taglines.length; char = 0; setTimeout(tick, 300); return; }
+        setTimeout(tick, deleting ? 45 : 80);
+      }
+      tick();
+    }
+
+    function animateCounters() {
+      const counters = document.querySelectorAll("[data-count]");
+      counters.forEach(counter => {
+        const target = Number(counter.dataset.count) || 0;
+        let current = 0;
+        const step = Math.max(1, Math.ceil(target / 34));
+        const timer = setInterval(() => {
+          current += step;
+          if (current >= target) { current = target; clearInterval(timer); }
+          counter.textContent = counter.dataset.count === "71" ? `${current}%` : String(current);
+        }, 28);
+      });
+    }
+
+    document.getElementById("adminTopBtn").addEventListener("click", () => isAdmin ? logoutAdmin() : openLogin());
+    document.getElementById("mobileToggle").addEventListener("click", () => document.getElementById("sidebar").classList.toggle("open"));
+    document.addEventListener("keydown", event => {
+      if (event.ctrlKey && event.shiftKey && event.key.toLowerCase() === "a") openLogin();
+      if (event.key === "Escape") document.querySelectorAll(".modal-backdrop.open").forEach(modal => modal.classList.remove("open"));
+    });
+
+    onAuthStateChanged(auth, user => {
+      isAdmin = !!user && user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase();
+      document.body.classList.toggle("admin", isAdmin);
+      document.getElementById("adminTopBtn").textContent = isAdmin ? "Sign Out" : "Admin";
+      renderPlanner();
+      renderGoals();
+      renderActivity();
+    });
+
+    try {
+      const snap = await getDoc(doc(db, "portfolio", "main"));
+      if (snap.exists()) data = mergeData(snap.data());
+      onSnapshot(doc(db, "portfolio", "main"), snapshot => {
+        if (!snapshot.exists()) return;
+        data = mergeData(snapshot.data());
+        renderAll();
+      });
+    } catch (error) {
+      console.warn("Firebase data load skipped:", error);
+    }
+
+    renderAll();
+    startTypewriter();
+    setTimeout(animateCounters, 500);
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        const loader = document.getElementById("loading");
+        loader.style.opacity = "0";
+        loader.style.visibility = "hidden";
+      }, 600);
+    });
+  </script>
+</body>
+</html>
