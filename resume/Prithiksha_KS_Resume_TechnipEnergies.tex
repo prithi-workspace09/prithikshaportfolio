@@ -1,0 +1,147 @@
+% Prithiksha K S - Hardware / Electronics resume (tailored for Technip Energies, Chennai)
+% Compile with: pdflatex Prithiksha_KS_Resume_TechnipEnergies.tex
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{url}
+\usepackage{parskip}
+\usepackage[top=1.1cm,bottom=1.1cm,left=1.5cm,right=1.5cm]{geometry}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{fontawesome5}
+
+% ---------- COLORS ----------
+\definecolor{mainblue}{RGB}{0, 76, 153}
+
+\hypersetup{
+    colorlinks=true,
+    urlcolor=mainblue,
+    linkcolor=mainblue,
+    pdftitle={Prithiksha K S - Resume},
+    pdfauthor={Prithiksha K S}
+}
+
+% ---------- SECTION STYLE ----------
+\titleformat{\section}{\large\bfseries\color{mainblue}}{}{0em}{}[\titlerule]
+\titlespacing{\section}{0pt}{5pt}{3pt}
+
+% ---------- LIST STYLE ----------
+\setlist[itemize]{leftmargin=*, topsep=1pt, itemsep=1pt, parsep=0pt}
+
+% ---------- HELPERS ----------
+% \project{Title}{Tech / context}{Right-aligned tag}
+\newcommand{\project}[3]{\item \textbf{#1} \textit{\small| #2} \hfill {\small\textbf{#3}}\\}
+
+\begin{document}
+\pagestyle{empty}
+
+% ---------- HEADER ----------
+\begin{center}
+{\LARGE \textbf{Prithiksha K S}} \\[3pt]
+{\small Electronics \& Communication Engineering Undergraduate \textbar\ Hardware \& Embedded Systems} \\[4pt]
+\small
+\faEnvelope\ \href{mailto:prithikshaks@gmail.com}{prithikshaks@gmail.com}
+\quad \faMobile\ +91 99947 77264
+\quad \faMapMarker*\ Salem, Tamil Nadu \\[2pt]
+\href{https://www.linkedin.com/in/prithikshaks-3139}{\faLinkedin\ LinkedIn}
+\quad | \quad
+\href{https://github.com/prithi-workspace09}{\faGithub\ GitHub}
+\quad | \quad
+\href{https://prithi-workspace09.github.io/prithiksha.github.io/}{\faGlobe\ Portfolio}
+\quad | \quad
+\href{https://leetcode.com/u/prithikshaks/}{\faCode\ LeetCode}
+\end{center}
+
+\vspace{-8pt}
+
+% ---------- SUMMARY ----------
+\section{Professional Summary}
+ECE undergraduate (CGPA 9.19) with hands-on experience building sensor-driven embedded and IoT systems
+for monitoring, automation and energy applications, with skills in microcontroller interfacing and
+Verilog-based digital design. First Runner-Up at SAP Hackfest 2026. Eager to contribute to instrumentation,
+control and hardware engineering for energy and process-industry projects.
+
+% ---------- EDUCATION ----------
+\section{Education}
+\textbf{B.E. Electronics and Communication Engineering} \hfill 2024 -- 2028 \\
+PSG Institute of Technology and Applied Research, Coimbatore \hfill CGPA: 9.19 / 10
+
+\textbf{Higher Secondary (Class XII)} -- SSM Lakshmi Ammal Matric Hr. Sec. School \hfill 95.5\%
+
+\textbf{Secondary (Class X)} -- SSM Lakshmi Ammal Matric Hr. Sec. School \hfill 97\%
+
+% ---------- SKILLS ----------
+\section{Technical Skills}
+\begin{itemize}
+\item \textbf{Hardware \& Embedded:} Arduino, Embedded C, microcontroller interfacing, sensor integration
+      (temperature, ultrasonic/level, biometric), relay \& actuator control, circuit prototyping and testing
+\item \textbf{Digital Design \& VLSI:} Verilog HDL, combinational and sequential logic design, digital circuits
+\item \textbf{IoT \& Monitoring:} Real-time sensor data acquisition, threshold-based alerting, Blynk dashboards
+\item \textbf{Programming \& AI:} C, C++, Python, Machine Learning (Random Forest, CatBoost, CNN/ResNet)
+\item \textbf{Tools:} \LaTeX, MS Excel, MS PowerPoint, Canva
+\item \textbf{Certifications:} Digital Circuits (NPTEL), AI \& ML (NPTEL), Verilog HDL (Udemy), Advanced Diploma in Python (ADPP)
+\end{itemize}
+
+% ---------- PROJECTS ----------
+\section{Projects}
+\begin{itemize}
+
+% NOTE: Verify / refine these bullets against your SAP Hackfest submission
+% (tech stack, data sources, metrics) before sending.
+\project{Advanced Disruption Sensing Agents}{AI Agents, SAP BTP, Python}{First Runner-Up, SAP Hackfest 2026}
+Built a multi-agent system that monitors operational and external data signals to detect supply-chain
+disruptions early, assess their impact and recommend mitigation actions for faster, data-driven decisions.
+
+\project{Smart Solar Water Heating \& Alert System}{IoT, Arduino, Temperature Sensors, Blynk}{}
+Designed a monitoring and control system for solar water heaters with real-time temperature sensing,
+automated control logic and mobile alerts for overheating and low-temperature conditions.
+
+\project{Water Level Management System}{Arduino, Level Sensors, Relay Control}{}
+Developed an automated tank-level controller using sensor feedback and control logic to switch the pump,
+prevent overflow and dry-run conditions, and reduce water wastage.
+
+\project{Fingerprint Voting System}{Microcontroller, Fingerprint Sensor Module, Embedded C}{}
+Built a biometric voting prototype with fingerprint enrolment and verification to ensure one-voter-one-vote,
+prevent duplicate voting and secure the election flow.
+
+\project{Driving with Wind -- EV Innovation}{Energy Harvesting, EV Systems}{Finalist, iTech Ideathon 2025}
+Conceptualised a wind-energy harvesting system that uses vehicle airflow as an auxiliary power source to
+support EV subsystems and improve overall energy efficiency.
+
+\project{Bias Mirror -- Ethical AI}{Python, Random Forest, CatBoost, Fairlearn}{Finalist, Qualcomm Edge AI 2025}
+Developed an ML-based bias detection system for recruitment data with fairness metrics and evaluation.
+
+\project{NeuroVisionAI \& Radiolink-X}{Python, Deep Learning}{}
+Deep-learning image interpretation system and an AI radiology assistant for early tumour-risk classification.
+
+\end{itemize}
+
+% ---------- RESEARCH ----------
+\section{Research Publication (Under Review)}
+\begin{itemize}
+\item \textbf{Class-Aligned Deep Feature Fusion for Practical Fingerprint and Finger Vein Authentication} \\
+Co-authored a bi-modal biometric authentication framework fusing fingerprint and finger-vein features
+extracted using a ResNet-based CNN, achieving accurate and spoof-resistant user authentication.
+\end{itemize}
+
+% ---------- ACHIEVEMENTS ----------
+\section{Achievements}
+\begin{itemize}
+\item \textbf{First Runner-Up} -- SAP Hackfest 2026 (Advanced Disruption Sensing Agents)
+\item \textbf{Semi-Finalist} -- Caterpillar Tech Challenge 2026
+\item \textbf{Finalist} -- Qualcomm Edge AI Hackathon 2025; iTech Ideathon 2025 (PSG iTech);
+      Code'O Clock 24-hr Hackathon (CIT)
+\end{itemize}
+
+% ---------- LEADERSHIP ----------
+\section{Leadership \& Activities}
+\begin{itemize}
+\item \textbf{Program Manager} -- FESTO (FATC) \quad | \quad \textbf{Joint Secretary} -- Dance Club
+      \quad | \quad \textbf{Editor} -- Multimedia Team, Student Union
+\end{itemize}
+
+\end{document}
