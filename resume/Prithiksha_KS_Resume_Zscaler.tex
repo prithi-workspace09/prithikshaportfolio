@@ -1,0 +1,161 @@
+% Prithiksha K S - Software Development Intern resume (tailored for Zscaler)
+% Compile with: pdflatex Prithiksha_KS_Resume_Zscaler.tex
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{url}
+\usepackage{parskip}
+\usepackage[top=1.1cm,bottom=1.1cm,left=1.5cm,right=1.5cm]{geometry}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{fontawesome5}
+
+% ---------- COLORS ----------
+\definecolor{mainblue}{RGB}{0, 76, 153}
+
+\hypersetup{
+    colorlinks=true,
+    urlcolor=mainblue,
+    linkcolor=mainblue,
+    pdftitle={Prithiksha K S - Resume},
+    pdfauthor={Prithiksha K S}
+}
+
+% ---------- SECTION STYLE ----------
+\titleformat{\section}{\large\bfseries\color{mainblue}}{}{0em}{}[\titlerule]
+\titlespacing{\section}{0pt}{5pt}{3pt}
+
+% ---------- LIST STYLE ----------
+\setlist[itemize]{leftmargin=*, topsep=1pt, itemsep=1pt, parsep=0pt}
+
+% ---------- HELPERS ----------
+% \project{Title}{Tech stack}{Right-aligned tag}
+\newcommand{\project}[3]{\item \textbf{#1} \textit{\small| #2} \hfill {\small\textbf{#3}}\\}
+
+\begin{document}
+\pagestyle{empty}
+
+% ---------- HEADER ----------
+\begin{center}
+{\LARGE \textbf{Prithiksha K S}} \\[3pt]
+{\small
+\href{https://www.linkedin.com/in/prithikshaks-3139}{\faLinkedin\ LinkedIn}
+\quad | \quad
+\href{https://github.com/prithi-workspace09}{\faGithub\ GitHub}
+\quad | \quad
+\href{https://prithi-workspace09.github.io/prithiksha.github.io/}{\faGlobe\ Portfolio}
+\quad | \quad
+\href{https://leetcode.com/u/prithikshaks/}{\faCode\ LeetCode}}
+\end{center}
+
+\vspace{-8pt}
+
+% ---------- SUMMARY ----------
+\section{Professional Summary}
+Pre-final year engineering student (CGPA 9.00) who builds end-to-end software systems in Python and C++,
+from multi-agent AI pipelines to ML models and secure biometric authentication. First Runner-Up at
+SAP Hackfest 2026 with a co-authored research paper on spoof-resistant authentication. Interested in
+secure, scalable cloud systems and eager to contribute as a Software Development Intern.
+
+% ---------- EDUCATION ----------
+\section{Education}
+\textbf{B.E. Electronics and Communication Engineering} \hfill 2024 -- 2028 \\
+PSG Institute of Technology and Applied Research, Coimbatore \hfill CGPA: 9.00
+
+\textbf{Higher Secondary} -- SSM Lakshmi Ammal Matric Hr. Sec. School \hfill 95.5\%
+
+\textbf{Secondary} -- SSM Lakshmi Ammal Matric Hr. Sec. School \hfill 97\%
+
+% ---------- SKILLS ----------
+\section{Technical Skills}
+\begin{itemize}
+\item \textbf{Languages:} Python, C++, C, Embedded C
+\item \textbf{Core CS:} Data Structures \& Algorithms, Object-Oriented Programming, Problem Solving (LeetCode)
+\item \textbf{AI / ML:} Multi-agent systems, Scikit-learn, Random Forest, CatBoost, CNNs (ResNet), Fairlearn
+\item \textbf{Tools \& Platforms:} Git, GitHub, SAP tools, Arduino, \LaTeX
+% Add these only after you have learned / used them:
+% \item \textbf{Networking \& Security:} TCP/IP, HTTP/HTTPS, DNS, TLS, JWT, Zero-Trust concepts
+% \item \textbf{Backend:} FastAPI, REST APIs, SQLite/PostgreSQL, Docker, Linux
+\item \textbf{Certifications:} Advanced Diploma in Python Programming (ADPP), Verilog HDL (Udemy)
+\end{itemize}
+
+% ---------- PROJECTS ----------
+\section{Projects}
+\begin{itemize}
+
+% NOTE: Replace "SAP tools" with the exact SAP services you used before sending.
+\project{Advanced Disruption Sensing Agents}{SAP tools, AI Agents, Python}{First Runner-Up, SAP Hackfest 2026}
+Built a multi-agent system that monitors operational and external data signals to detect supply-chain
+disruptions early, assess their impact and recommend mitigation actions for faster, data-driven decisions.
+
+\project{Bias Mirror -- Ethical AI}{Python, Scikit-learn, CatBoost, Fairlearn}{Finalist, Qualcomm Edge AI 2025}
+Developed an ML pipeline to detect bias in recruitment data, comparing Random Forest and CatBoost models
+and evaluating them with fairness metrics to support responsible screening decisions.
+
+\project{Fingerprint Voting System}{Embedded C, Biometric Authentication}{}
+Built a biometric voting system with fingerprint enrolment and verification that enforces
+one-voter-one-vote, rejects duplicate attempts and secures the end-to-end voting flow.
+
+\project{NeuroVisionAI \& Radiolink-X}{Python, Deep Learning, CNNs}{}
+Built a deep-learning image interpretation system and an AI radiology assistant for early tumour-risk
+classification.
+
+% ---------- NEW PROJECTS: uncomment each one ONLY after you have built it and pushed it to GitHub ----------
+% To stay on one page after adding all three: delete NeuroVisionAI above and put the three
+% Finalist lines in Achievements on a single line.
+% \project{SecureProxy -- Web Proxy with URL Filtering}{Python, Sockets, Multithreading, HTTP/HTTPS}{}
+% Built a multithreaded forward proxy that handles HTTP and HTTPS (CONNECT tunnelling), blocks
+% malicious/blacklisted domains with policy rules, caches responses with an LRU cache and logs all traffic.
+%
+% \project{Network Intrusion Detection System}{Python, Scikit-learn, CICIDS2017 Dataset}{}
+% Trained ML classifiers on network-flow features to detect DDoS, port-scan and brute-force attacks,
+% achieving XX\% accuracy, and built a live mode that flags suspicious flows from captured traffic.
+%
+% \project{ZeroGate -- Zero-Trust Auth \& Access Service}{FastAPI, JWT, SQLite, Docker}{}
+% Developed a REST authentication service with hashed passwords, JWT access/refresh tokens, role-based
+% access control and per-user rate limiting, containerised with Docker and tested with Pytest.
+
+\end{itemize}
+
+% ---------- RESEARCH ----------
+\section{Research Publication (Under Review)}
+\begin{itemize}
+\item \textbf{Class-Aligned Deep Feature Fusion for Practical Fingerprint and Finger Vein Authentication} \\
+Co-authored a bi-modal biometric authentication framework fusing fingerprint and finger-vein features
+extracted using a ResNet-based CNN, achieving accurate and spoof-resistant user authentication.
+\end{itemize}
+
+% ---------- ACHIEVEMENTS ----------
+\section{Achievements}
+\begin{itemize}
+\item \textbf{First Runner-Up} -- SAP Hackfest 2026
+\item \textbf{Semi-Finalist} -- Caterpillar Tech Challenge 2026
+\item \textbf{Finalist} -- Qualcomm Edge AI Hackathon 2025
+\item \textbf{Finalist} -- iTech Ideathon 2025 (PSG iTech)
+\item \textbf{Finalist} -- Code'O Clock 24-hr Hackathon (CIT)
+\end{itemize}
+
+% ---------- LEADERSHIP ----------
+\section{Leadership \& Activities}
+\begin{itemize}
+\item \textbf{Program Manager (2025--2026)} -- FESTO (FATC)
+\item \textbf{Joint Secretary (2025--2026) \& Media Coordinator (2026--Present)} -- Dance Club
+\item \textbf{Editor (2025--2026)} -- Multimedia Team, Student Union
+\item \textbf{Executive Member (2026--Present)} -- ECE Association
+\end{itemize}
+
+% ---------- CONTACT (BOTTOM RIGHT) ----------
+\vfill
+\begin{flushright}
+{\small \textcolor{gray}{
+\faEnvelope\ \href{mailto:prithikshaks@gmail.com}{prithikshaks@gmail.com} \\
+\faMobile\ +91 99947 77264 \\
+\faMapMarker*\ Thevur, Salem, Tamil Nadu -- 637104
+}}
+\end{flushright}
+
+\end{document}
